@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdModeEditOutline, MdDone } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
+
 import Modal from "./Modal";
 
 const Item = styled.li`
@@ -14,7 +15,6 @@ const Item = styled.li`
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
-  box-sizing: border-box;
   @media only screen and (max-width: 991px) {
     width: calc(100% / 2 - 20px / 2);
   }
@@ -24,7 +24,6 @@ const Item = styled.li`
 `;
 const ItemTitle = styled.h3`
   font-size: 16px;
-  margin: 0;
   text-decoration: ${({ isCompleted }) =>
     isCompleted ? "line-through" : "none"};
 `;
@@ -33,9 +32,6 @@ const CheckBoxWrap = styled.div`
   align-items: center;
   gap: 5px;
   cursor: pointer;
-  p {
-    margin: 0;
-  }
 `;
 const CustomCheckBox = styled.div`
   display: flex;
@@ -71,7 +67,7 @@ const Btn = styled.button`
   }
 `;
 
-const TodoItem = ({ el }) => {
+const TodoItem = ({ el, deleteTodo }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [todo, setTodo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -104,12 +100,15 @@ const TodoItem = ({ el }) => {
         >
           <MdModeEditOutline />
         </Btn>
-        <Btn>
+        <Btn
+          onClick={() => {
+            deleteTodo(el.id);
+          }}
+        >
           <AiOutlineDelete />
         </Btn>
       </Buttons>
       {isEdit && <Modal todo={todo} updateTodo={(value) => saveTodo(value)} />}
-      {/* <Modal updateTodo={(value) => saveTodo(value)} /> */}
     </Item>
   );
 };

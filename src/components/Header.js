@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AiOutlineLogout } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 const HeaderWrap = styled.div`
   padding: 15px;
@@ -18,9 +19,14 @@ const BtnWrap = styled.div`
 `;
 
 const Header = () => {
+  const router = useRouter();
   return (
     <HeaderWrap>
-      <BtnWrap>
+      <BtnWrap
+        onClick={() => {
+          router.push("/login");
+        }}
+      >
         <p>{"Log out"}</p>
         <AiOutlineLogout size={20} />
       </BtnWrap>

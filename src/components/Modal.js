@@ -8,23 +8,18 @@ const Backdrop = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
-  /* max-width: 100vw;
-  max-height: 100vw; */
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 const ModalWrap = styled.div`
   position: absolute;
-  box-sizing: border-box;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
   border-radius: 5px;
   padding: 30px;
-  max-width: 500px;
   min-width: 500px;
   input {
     min-height: 40px;
@@ -34,10 +29,8 @@ const ModalWrap = styled.div`
     border: 1px solid #ccc;
     outline: none;
     border-radius: 4px;
-    box-sizing: border-box;
   }
   @media only screen and (max-width: 575px) {
-    max-width: 290px;
     min-width: 290px;
   }
 `;
