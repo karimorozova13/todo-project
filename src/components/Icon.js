@@ -6,6 +6,7 @@ const IconContainer = styled.span`
   top: 0;
   right: 0;
   height: 100%;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;

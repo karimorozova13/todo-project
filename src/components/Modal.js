@@ -41,6 +41,7 @@ const Close = styled.span`
   position: absolute;
   top: 20px;
   right: 20px;
+  cursor: pointer;
 `;
 const Title = styled.p`
   font-size: 16px;
@@ -70,17 +71,23 @@ const SubmitBtn = styled.button`
   }
 `;
 
-const Modal = ({ todo = "", updateTodo }) => {
+const Modal = ({ todo = "", updateTodo, closeModal, btnTitle = "Edit" }) => {
   const [value, setValue] = useState(todo);
   return (
-    <Backdrop>
+    <Backdrop
+      onClick={(e) => {
+        if (e.target === e.currentTarget) closeModal();
+      }}
+    >
       <ModalWrap>
-        <Close onClick={() => updateTodo(value)}>
+        <Close onClick={closeModal}>
           <AiOutlineClose />
         </Close>
         <Title>{"Next up:"}</Title>
         <input value={value} onChange={(e) => setValue(e.target.value)} />
-        <SubmitBtn onClick={() => updateTodo(value)}>{"Edit"}</SubmitBtn>
+        <SubmitBtn onClick={async () => await updateTodo(value)}>
+          {btnTitle}
+        </SubmitBtn>
       </ModalWrap>
     </Backdrop>
   );

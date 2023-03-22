@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdModeEditOutline, MdDone } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
+import Link from "next/link";
 
 import Modal from "./Modal";
+import { todoListApi } from "@/utils/todoApi";
 
 const Item = styled.li`
   list-style: none;
@@ -20,6 +22,10 @@ const Item = styled.li`
   }
   @media only screen and (max-width: 575px) {
     width: 100%;
+  }
+  a {
+    color: lightblue;
+    text-decoration: none;
   }
 `;
 const ItemTitle = styled.h3`
@@ -67,7 +73,7 @@ const Btn = styled.button`
   }
 `;
 
-const TodoItem = ({ el, deleteTodo }) => {
+const TodoItem = ({ el, refreshData = async () => {} }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [todo, setTodo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -77,21 +83,41 @@ const TodoItem = ({ el, deleteTodo }) => {
     setIsCompleted(el.isCompleted);
   }, []);
 
-  const saveTodo = (val) => {
-    setTodo(val);
-    setIsEdit(false);
-    console.log(val);
-    console.log(todo);
+  const saveTodo = async (val, isCompleted) => {
+    try {
+      setTodo(val);
+      const res = await todoListApi.updateOne(el.id, val, isCompleted);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsEdit(false);
+    }
+  };
+  const deleteTodo = async () => {
+    try {
+      const res = await todoListApi.deleteOne(el.id);
+      console.log(res);
+      await refreshData();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Item>
       <ItemTitle isCompleted={isCompleted}>{todo}</ItemTitle>
-      <CheckBoxWrap onClick={() => setIsCompleted(!isCompleted)}>
+      <CheckBoxWrap
+        onClick={async () => {
+          setIsCompleted(!isCompleted);
+          await saveTodo(todo, !isCompleted);
+        }}
+      >
         <CustomCheckBox>
           {isCompleted && <MdDone color="green" size={20} />}
         </CustomCheckBox>
         <p>{"Complete task"}</p>
       </CheckBoxWrap>
+      <Link href={`http://localhost:3002/api/todoApi/${el.id}`}>Read more</Link>
       <Buttons>
         <Btn
           onClick={() => {
@@ -100,15 +126,17 @@ const TodoItem = ({ el, deleteTodo }) => {
         >
           <MdModeEditOutline />
         </Btn>
-        <Btn
-          onClick={() => {
-            deleteTodo(el.id);
-          }}
-        >
+        <Btn onClick={async () => await deleteTodo()}>
           <AiOutlineDelete />
         </Btn>
       </Buttons>
-      {isEdit && <Modal todo={todo} updateTodo={(value) => saveTodo(value)} />}
+      {isEdit && (
+        <Modal
+          todo={todo}
+          closeModal={() => setIsEdit(false)}
+          updateTodo={(value) => saveTodo(value, isCompleted)}
+        />
+      )}
     </Item>
   );
 };

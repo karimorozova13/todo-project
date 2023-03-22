@@ -55,16 +55,18 @@ const LoginForm = () => {
                 </Input>
 
                 <Input style={{ margin: "0 auto 30px" }}>
-                  <Field
-                    type={type}
-                    name="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                    placeholder={"Password"}
-                    autoComplete="password"
-                  />
-                  <Icon onClick={toggleType} type={type} />
+                  <div>
+                    <Field
+                      type={type}
+                      name="password"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.password}
+                      placeholder={"Password"}
+                      autoComplete="password"
+                    />
+                    <Icon onClick={toggleType} type={type} />
+                  </div>
                 </Input>
 
                 <SubmitBtn

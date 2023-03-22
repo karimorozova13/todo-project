@@ -4,9 +4,16 @@ const InputContainer = styled.div`
   text-align: center;
   width: 100%;
   width: calc(100% / 2 - 20px / 2);
-  position: relative;
   @media only screen and (max-width: 575px) {
     width: 100%;
+  }
+  div {
+    position: relative;
+    width: 290px;
+    margin: 0 auto;
+    @media only screen and (max-width: 767px) {
+      width: 250px;
+    }
   }
   input {
     min-height: 40px;

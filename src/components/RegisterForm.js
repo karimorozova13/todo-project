@@ -2,6 +2,7 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import styled from "styled-components";
 import Link from "next/link";
+import { useState } from "react";
 
 import Container from "./Container";
 import Section from "./Section";
@@ -9,7 +10,6 @@ import Input from "./Input";
 import LinkText from "./LinkText";
 import SubmitBtn from "./SubmitBtn";
 import FormTitle from "./FormTitle";
-import { useState } from "react";
 import Icon from "./Icon";
 
 const FormWrap = styled.div`
@@ -128,29 +128,33 @@ const RegisterForm = () => {
                     />
                   </Input>
                   <Input>
-                    <Field
-                      type={type}
-                      name="password"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.password}
-                      placeholder={"Password"}
-                    />
-                    <Icon onClick={toggleType} type={type} />
+                    <div>
+                      <Field
+                        type={type}
+                        name="password"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.password}
+                        placeholder={"Password"}
+                      />
+                      <Icon onClick={toggleType} type={type} />
+                    </div>
                   </Input>
                   <Input>
-                    <Field
-                      type={typeConfirmation}
-                      name="confrimPassword"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.confrimPassword}
-                      placeholder={"Confirm password"}
-                    />
-                    <Icon
-                      onClick={toggleConfirmationType}
-                      type={typeConfirmation}
-                    />
+                    <div>
+                      <Field
+                        type={typeConfirmation}
+                        name="confrimPassword"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.confrimPassword}
+                        placeholder={"Confirm password"}
+                      />
+                      <Icon
+                        onClick={toggleConfirmationType}
+                        type={typeConfirmation}
+                      />
+                    </div>
                   </Input>
                 </FormWrap>
 
