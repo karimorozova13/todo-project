@@ -7,26 +7,25 @@ const apiConfig = axios.create({
 
 export const todoListApi = {
   getAll: async () => {
-    const res = await apiConfig.get("http://localhost:3002/api/todoApi");
-    return res.data;
+    const res = await apiConfig.get("api/todoApi");
+    return res.data.data.todos;
   },
   addNew: async (val) => {
-    const res = await apiConfig.post("http://localhost:3002/api/todoApi", {
+    const res = await apiConfig.post("api/todoApi", {
       title: val,
+      isCompleted: false,
     });
     return res.data;
   },
   updateOne: async (id, title, isCompleted) => {
-    const res = await apiConfig.put(`http://localhost:3002/api/todoApi/${id}`, {
+    const res = await apiConfig.put(`api/todoApi/${id}`, {
       title,
       isCompleted,
     });
     return res.data;
   },
   deleteOne: async (id) => {
-    const res = await apiConfig.delete(
-      `http://localhost:3002/api/todoApi/${id}`
-    );
+    const res = await apiConfig.delete(`/api/todoApi/${id}`);
     return res.data;
   },
 };

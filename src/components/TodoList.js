@@ -16,7 +16,7 @@ const TodoList = ({ todoList, refreshData = async () => {} }) => {
         return (
           <TodoItem
             refreshData={async () => await refreshData()}
-            key={el.id}
+            key={el._id}
             el={el}
           />
         );

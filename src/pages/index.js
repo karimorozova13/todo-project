@@ -37,6 +37,7 @@ const Home = () => {
   const fetchTodoList = async () => {
     try {
       const data = await todoListApi.getAll();
+
       setTodoList(data);
     } catch (error) {
       console.log(error);

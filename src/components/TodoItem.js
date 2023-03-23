@@ -86,7 +86,7 @@ const TodoItem = ({ el, refreshData = async () => {} }) => {
   const saveTodo = async (val, isCompleted) => {
     try {
       setTodo(val);
-      const res = await todoListApi.updateOne(el.id, val, isCompleted);
+      const res = await todoListApi.updateOne(el._id, val, isCompleted);
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -96,7 +96,7 @@ const TodoItem = ({ el, refreshData = async () => {} }) => {
   };
   const deleteTodo = async () => {
     try {
-      const res = await todoListApi.deleteOne(el.id);
+      const res = await todoListApi.deleteOne(el._id);
       console.log(res);
       await refreshData();
     } catch (error) {
@@ -117,7 +117,9 @@ const TodoItem = ({ el, refreshData = async () => {} }) => {
         </CustomCheckBox>
         <p>{"Complete task"}</p>
       </CheckBoxWrap>
-      <Link href={`http://localhost:3002/api/todoApi/${el.id}`}>Read more</Link>
+      <Link href={`http://localhost:3002/api/todoApi/${el._id}`}>
+        Read more
+      </Link>
       <Buttons>
         <Btn
           onClick={() => {

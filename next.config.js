@@ -11,7 +11,9 @@ const nextConfig = {
 
     return config;
   },
-  env: {},
+  env: {
+    DB_HOST: process.env.DB_HOST,
+  },
   async headers() {
     return [
       {
