@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
+global.basedir = __dirname;
+
 // create app
 const app = express();
 
@@ -13,9 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // connect routes, errors
-const todoRouter = require("./routes/api");
+const todoRouter = require("./routes/api/todos");
+const authRouter = require("./routes/api/auth");
 
 app.use("/api/todoApi", todoRouter);
+app.use("/api/auth", authRouter);
 app.use((req, res) => {
   res.status(404).json({
     status: "error",

@@ -1,7 +1,6 @@
 const express = require("express");
-const Joi = require("joi");
 const router = express.Router();
-const ctrlTodo = require("../../controller");
+const ctrlTodo = require("../../controller/todoCtrl");
 
 router.get("/", ctrlTodo.get);
 router.get("/:id", ctrlTodo.getById);

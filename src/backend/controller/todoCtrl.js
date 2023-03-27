@@ -1,4 +1,4 @@
-const service = require("../service/index");
+const service = require("../models/todo");
 
 const get = async (req, res, next) => {
   try {
