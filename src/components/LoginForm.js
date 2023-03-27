@@ -11,6 +11,7 @@ import LinkText from "./LinkText";
 import FormTitle from "./FormTitle";
 import Icon from "./Icon";
 import { useRouter } from "next/router";
+import { authApi } from "@/utils/authApi";
 
 const FormWrap = styled.div`
   padding: 200px 0;
@@ -27,15 +28,18 @@ const LoginForm = () => {
         <FormTitle title={"Welcome back :)"} />
         <Formik
           initialValues={{
-            userName: "",
             password: "",
+            email: "",
           }}
           validationSchema={Yup.object().shape({
-            userName: Yup.string().required().label("User name"),
+            email: Yup.string().required().label("Email"),
             password: Yup.string().required().label("Password"),
           })}
-          onSubmit={(values) => {
+          onSubmit={async (values) => {
             console.log(values);
+            const res = await authApi.login(values);
+            console.log(res);
+            router.push("/");
           }}
           validateOnChange={true}
         >
@@ -45,12 +49,12 @@ const LoginForm = () => {
                 <Input style={{ margin: "0 auto 30px" }}>
                   <Field
                     type="text"
-                    name="userName"
+                    name="email"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.userName}
-                    placeholder={"User name"}
-                    autoComplete="userName"
+                    value={values.email}
+                    placeholder={"Email"}
+                    autoComplete="email"
                   />
                 </Input>
 
@@ -72,10 +76,7 @@ const LoginForm = () => {
                 <SubmitBtn
                   title={"Log in"}
                   type="submit"
-                  onClick={() => {
-                    router.push("/");
-                    handleSubmit();
-                  }}
+                  onClick={handleSubmit}
                 />
               </Form>
             );

@@ -11,6 +11,8 @@ import LinkText from "./LinkText";
 import SubmitBtn from "./SubmitBtn";
 import FormTitle from "./FormTitle";
 import Icon from "./Icon";
+import { authApi } from "@/utils/authApi";
+import { useRouter } from "next/router";
 
 const FormWrap = styled.div`
   display: flex;
@@ -33,6 +35,8 @@ const RegisterForm = () => {
     typeConfirmation === "password"
       ? setTypeConfirmation("text")
       : setTypeConfirmation("password");
+
+  const router = useRouter();
   return (
     <Section>
       <Container>
@@ -43,11 +47,14 @@ const RegisterForm = () => {
             lastName: "",
             userName: "",
             password: "",
-            confrimPassword: "",
+            confirmPassword: "",
             email: "",
           }}
-          onSubmit={(values) => {
+          onSubmit={async (values) => {
             console.log(values);
+            const data = await authApi.register(values);
+            console.log(data);
+            router.push("/login");
           }}
           validationSchema={Yup.object().shape({
             firstName: Yup.string().min(3).required().label("First name"),
@@ -77,13 +84,14 @@ const RegisterForm = () => {
                 /^(?=.{8,})/,
                 "Password must contain at least 8 characters"
               ),
-            confrimPassword: Yup.string()
+            confirmPassword: Yup.string()
               .required()
               .label("Confirm password")
               .oneOf([Yup.ref("password"), null], "Password shoud match"),
           })}
         >
-          {({ values, handleChange, handleBlur, handleSubmit }) => {
+          {({ values, handleChange, handleBlur, handleSubmit, errors }) => {
+            console.log(errors);
             return (
               <Form>
                 <FormWrap>
@@ -144,10 +152,10 @@ const RegisterForm = () => {
                     <div>
                       <Field
                         type={typeConfirmation}
-                        name="confrimPassword"
+                        name="confirmPassword"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.confrimPassword}
+                        value={values.confirmPassword}
                         placeholder={"Confirm password"}
                       />
                       <Icon

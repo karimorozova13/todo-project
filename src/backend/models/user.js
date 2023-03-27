@@ -28,6 +28,11 @@ const userSchema = new Schema(
       minlength: 6,
       required: true,
     },
+    confirmPassword: {
+      type: String,
+      minlength: 6,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -37,10 +42,17 @@ const registerSchema = Joi.object({
   userName: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
+  confirmPassword: Joi.string().min(6).required(),
+});
+
+const loginSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+  password: Joi.string().min(6).required(),
 });
 
 const schemas = {
   register: registerSchema,
+  login: loginSchema,
 };
 
 const User = model("user", userSchema);
