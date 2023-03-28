@@ -1,8 +1,9 @@
 const service = require("../models/todo");
 
 const get = async (req, res, next) => {
+  const { id: owner } = req.user;
   try {
-    const results = await service.getAll();
+    const results = await service.getAll(owner);
     res.json({
       status: "success",
       code: 200,
@@ -66,7 +67,7 @@ const remove = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const result = await service.addTodo(req.body);
+    const result = await service.addTodo(req);
     res.json({
       status: "success",
       code: 200,

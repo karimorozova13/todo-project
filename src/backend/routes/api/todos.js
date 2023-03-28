@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const ctrlTodo = require("../../controller/todoCtrl");
 
-router.get("/", ctrlTodo.get);
-router.get("/:id", ctrlTodo.getById);
-router.delete("/:id", ctrlTodo.remove);
-router.post("/", ctrlTodo.add);
-router.put("/:id", ctrlTodo.update);
+const { basedir } = global;
+const ctrlTodo = require("../../controller/todoCtrl");
+const { auth } = require(`${basedir}/middlewares/auth`);
+
+router.get("/", auth, ctrlTodo.get);
+router.get("/:id", auth, ctrlTodo.getById);
+router.delete("/:id", auth, ctrlTodo.remove);
+router.post("/", auth, ctrlTodo.add);
+router.put("/:id", auth, ctrlTodo.update);
 
 module.exports = router;

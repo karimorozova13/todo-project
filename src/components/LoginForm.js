@@ -1,8 +1,11 @@
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
+import { authApi } from "@/utils/authApi";
 
 import Container from "./Container";
 import Input from "./Input";
@@ -10,8 +13,6 @@ import SubmitBtn from "./SubmitBtn";
 import LinkText from "./LinkText";
 import FormTitle from "./FormTitle";
 import Icon from "./Icon";
-import { useRouter } from "next/router";
-import { authApi } from "@/utils/authApi";
 
 const FormWrap = styled.div`
   padding: 200px 0;
@@ -20,8 +21,10 @@ const FormWrap = styled.div`
 const LoginForm = () => {
   const router = useRouter();
   const [type, setType] = useState("password");
+
   const toggleType = () =>
     type === "password" ? setType("text") : setType("password");
+
   return (
     <Container>
       <FormWrap>
@@ -36,10 +39,9 @@ const LoginForm = () => {
             password: Yup.string().required().label("Password"),
           })}
           onSubmit={async (values) => {
-            console.log(values);
             const res = await authApi.login(values);
-            console.log(res);
-            router.push("/");
+            localStorage.setItem("token", res.token);
+            router.push("/my-todo-list");
           }}
           validateOnChange={true}
         >

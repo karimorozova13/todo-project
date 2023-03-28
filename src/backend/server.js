@@ -38,13 +38,13 @@ app.use((err, _, res, __) => {
 });
 
 // connect app to DB
-const { DB_HOST, PORT } = process.env;
 mongoose.Promise = global.Promise;
+const { DB_HOST, PORT } = process.env;
 
 mongoose
   .connect(DB_HOST)
   .then(() => {
-    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+    app.listen(PORT);
   })
   .catch((e) => {
     console.log(e);

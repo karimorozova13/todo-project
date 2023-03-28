@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -73,6 +73,18 @@ const SubmitBtn = styled.button`
 
 const Modal = ({ todo = "", updateTodo, closeModal, btnTitle = "Edit" }) => {
   const [value, setValue] = useState(todo);
+
+  const saveChanges = async (e) => {
+    if (e.keyCode === 13) await updateTodo(e.target.value);
+  };
+
+  useEffect(() => {
+    document.addEventListener("keyup", saveChanges);
+    return () => {
+      document.removeEventListener("keyup", saveChanges);
+    };
+  }, []);
+
   return (
     <Backdrop
       onClick={(e) => {

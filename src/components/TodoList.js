@@ -9,12 +9,13 @@ const List = styled.ul`
   gap: 20px;
 `;
 
-const TodoList = ({ todoList, refreshData = async () => {} }) => {
+const TodoList = ({ todoList, token, refreshData = async () => {} }) => {
   return (
     <List>
       {todoList.map((el) => {
         return (
           <TodoItem
+            token={token}
             refreshData={async () => await refreshData()}
             key={el._id}
             el={el}

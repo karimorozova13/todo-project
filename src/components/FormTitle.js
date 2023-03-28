@@ -9,8 +9,6 @@ const Title = styled.h1`
   margin-bottom: 60px;
 `;
 
-const FormTitle = ({ title }) => {
-  return <Title>{title}</Title>;
-};
+const FormTitle = ({ title }) => <Title>{title}</Title>;
 
 export default FormTitle;

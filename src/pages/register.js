@@ -1,8 +1,5 @@
 import RegisterForm from "@/components/RegisterForm";
-import React from "react";
 
-const register = () => {
-  return <RegisterForm />;
-};
+const register = () => <RegisterForm />;
 
 export default register;

@@ -8,8 +8,6 @@ const SectionWrap = styled.div`
   }
 `;
 
-const Section = ({ children }) => {
-  return <SectionWrap>{children}</SectionWrap>;
-};
+const Section = ({ children }) => <SectionWrap>{children}</SectionWrap>;
 
 export default Section;

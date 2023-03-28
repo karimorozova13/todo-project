@@ -26,8 +26,6 @@ const ContainerWrap = styled.div`
   }
 `;
 
-const Container = ({ children }) => {
-  return <ContainerWrap>{children}</ContainerWrap>;
-};
+const Container = ({ children }) => <ContainerWrap>{children}</ContainerWrap>;
 
 export default Container;

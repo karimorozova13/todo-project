@@ -11,6 +11,10 @@ const todoShema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -21,19 +25,23 @@ const valideteSchema = Joi.object({
 
 const Todo = model("todo", todoShema);
 
-const getAll = async () => {
-  return Todo.find();
+const getAll = async (owner) => {
+  return Todo.find({ owner }).populate(
+    "owner",
+    "firstName lastName userName email"
+  );
 };
-const getTodo = (id) => {
+const getTodo = async (id) => {
   return Todo.findOne({ _id: id });
 };
-const addTodo = ({ title, isCompleted }) => {
-  return Todo.create({ title, isCompleted });
+const addTodo = async (req, res) => {
+  const { id: owner } = req.user;
+  return Todo.create({ ...req.body, owner });
 };
-const updateTodo = (id, fields) => {
+const updateTodo = async (id, fields) => {
   return Todo.findByIdAndUpdate({ _id: id }, fields, { new: true });
 };
-const removeTodo = (id) => {
+const removeTodo = async (id) => {
   return Todo.findByIdAndRemove({ _id: id });
 };
 

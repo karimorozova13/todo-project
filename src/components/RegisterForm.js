@@ -3,6 +3,9 @@ import { Formik, Form, Field } from "formik";
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
+
+import { authApi } from "@/utils/authApi";
 
 import Container from "./Container";
 import Section from "./Section";
@@ -11,8 +14,6 @@ import LinkText from "./LinkText";
 import SubmitBtn from "./SubmitBtn";
 import FormTitle from "./FormTitle";
 import Icon from "./Icon";
-import { authApi } from "@/utils/authApi";
-import { useRouter } from "next/router";
 
 const FormWrap = styled.div`
   display: flex;
@@ -24,6 +25,14 @@ const FormWrap = styled.div`
   justify-content: center;
   margin-bottom: 40px;
 `;
+const ErrorText = styled.p`
+  color: red;
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  top: 100%;
+  width: 100%;
+`;
 
 const RegisterForm = () => {
   const [type, setType] = useState("password");
@@ -31,12 +40,14 @@ const RegisterForm = () => {
 
   const toggleType = () =>
     type === "password" ? setType("text") : setType("password");
+
   const toggleConfirmationType = () =>
     typeConfirmation === "password"
       ? setTypeConfirmation("text")
       : setTypeConfirmation("password");
 
   const router = useRouter();
+
   return (
     <Section>
       <Container>
@@ -65,24 +76,8 @@ const RegisterForm = () => {
               .required()
               .label("Password")
               .matches(
-                /^(?=.*[A-Z])/,
-                "Password must contain at least one uppercase letter"
-              )
-              .matches(
-                /^(?=.*[a-z])/,
-                "Password must contain at least one lowercase letter"
-              )
-              .matches(
-                /^(?=.*[0-9])/,
-                "Password must contain at least one number"
-              )
-              .matches(
-                /^(?=.*[!@#$%^&*])/,
-                "Password must contain at least one special character"
-              )
-              .matches(
-                /^(?=.{8,})/,
-                "Password must contain at least 8 characters"
+                /^(?=.{6,})/,
+                "Password must contain at least 6 characters"
               ),
             confirmPassword: Yup.string()
               .required()
@@ -91,7 +86,6 @@ const RegisterForm = () => {
           })}
         >
           {({ values, handleChange, handleBlur, handleSubmit, errors }) => {
-            console.log(errors);
             return (
               <Form>
                 <FormWrap>
@@ -104,7 +98,11 @@ const RegisterForm = () => {
                       onBlur={handleBlur}
                       placeholder={"First Name"}
                     />
+                    {errors.firstName && (
+                      <ErrorText>{errors.firstName}</ErrorText>
+                    )}
                   </Input>
+
                   <Input>
                     <Field
                       type="text"
@@ -114,7 +112,11 @@ const RegisterForm = () => {
                       onBlur={handleBlur}
                       placeholder={"Last Name"}
                     />
+                    {errors.lastName && (
+                      <ErrorText>{errors.lastName}</ErrorText>
+                    )}
                   </Input>
+
                   <Input>
                     <Field
                       type="text"
@@ -124,6 +126,9 @@ const RegisterForm = () => {
                       onBlur={handleBlur}
                       placeholder={"User Name"}
                     />
+                    {errors.userName && (
+                      <ErrorText>{errors.userName}</ErrorText>
+                    )}
                   </Input>
                   <Input>
                     <Field
@@ -134,6 +139,7 @@ const RegisterForm = () => {
                       onChange={handleChange}
                       placeholder={"Email"}
                     />
+                    {errors.email && <ErrorText>{errors.email}</ErrorText>}
                   </Input>
                   <Input>
                     <div>
@@ -147,6 +153,9 @@ const RegisterForm = () => {
                       />
                       <Icon onClick={toggleType} type={type} />
                     </div>
+                    {errors.password && (
+                      <ErrorText>{errors.password}</ErrorText>
+                    )}
                   </Input>
                   <Input>
                     <div>
@@ -163,6 +172,9 @@ const RegisterForm = () => {
                         type={typeConfirmation}
                       />
                     </div>
+                    {errors.confirmPassword && (
+                      <ErrorText>{errors.confirmPassword}</ErrorText>
+                    )}
                   </Input>
                 </FormWrap>
 

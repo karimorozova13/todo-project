@@ -10,8 +10,6 @@ const LoginText = styled.p`
     text-decoration: none;
   }
 `;
-const LinkText = ({ children }) => {
-  return <LoginText>{children}</LoginText>;
-};
+const LinkText = ({ children }) => <LoginText>{children}</LoginText>;
 
 export default LinkText;

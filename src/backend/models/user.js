@@ -33,6 +33,9 @@ const userSchema = new Schema(
       minlength: 6,
       required: true,
     },
+    token: {
+      type: String,
+    },
   },
   { versionKey: false, timestamps: true }
 );

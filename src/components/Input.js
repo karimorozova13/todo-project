@@ -4,6 +4,7 @@ const InputContainer = styled.div`
   text-align: center;
   width: 100%;
   width: calc(100% / 2 - 20px / 2);
+  position: relative;
   @media only screen and (max-width: 575px) {
     width: 100%;
   }
@@ -34,8 +35,8 @@ const InputContainer = styled.div`
   }
 `;
 
-const Input = ({ children, style = {} }) => {
-  return <InputContainer style={style}>{children}</InputContainer>;
-};
+const Input = ({ children, style = {} }) => (
+  <InputContainer style={style}>{children}</InputContainer>
+);
 
 export default Input;

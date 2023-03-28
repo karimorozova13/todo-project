@@ -4,8 +4,9 @@ import { MdModeEditOutline, MdDone } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
 import Link from "next/link";
 
-import Modal from "./Modal";
 import { todoListApi } from "@/utils/todoApi";
+
+import Modal from "./Modal";
 
 const Item = styled.li`
   list-style: none;
@@ -73,7 +74,7 @@ const Btn = styled.button`
   }
 `;
 
-const TodoItem = ({ el, refreshData = async () => {} }) => {
+const TodoItem = ({ el, token, refreshData = async () => {} }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [todo, setTodo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -86,23 +87,23 @@ const TodoItem = ({ el, refreshData = async () => {} }) => {
   const saveTodo = async (val, isCompleted) => {
     try {
       setTodo(val);
-      const res = await todoListApi.updateOne(el._id, val, isCompleted);
-      console.log(res);
+      const res = await todoListApi.updateOne(el._id, val, isCompleted, token);
     } catch (error) {
       console.log(error);
     } finally {
       setIsEdit(false);
     }
   };
+
   const deleteTodo = async () => {
     try {
-      const res = await todoListApi.deleteOne(el._id);
-      console.log(res);
+      const res = await todoListApi.deleteOne(el._id, token);
       await refreshData();
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <Item>
       <ItemTitle isCompleted={isCompleted}>{todo}</ItemTitle>
@@ -117,9 +118,7 @@ const TodoItem = ({ el, refreshData = async () => {} }) => {
         </CustomCheckBox>
         <p>{"Complete task"}</p>
       </CheckBoxWrap>
-      <Link href={`http://localhost:3002/api/todoApi/${el._id}`}>
-        Read more
-      </Link>
+      <Link href={`/my-todo-list/${el._id}`}>Read more</Link>
       <Buttons>
         <Btn
           onClick={() => {
