@@ -4,12 +4,12 @@ import styled from "styled-components";
 import { todoListApi } from "../utils/todoApi";
 import { authApi } from "../utils/authApi";
 
-import Container from "@/components/Container";
-import Header from "@/components/Header";
-import Modal from "@/components/Modal";
-import Section from "@/components/Section";
-import Title from "@/components/Title";
-import TodoList from "@/components/TodoList";
+import Container from "../components/Container";
+import Header from "../components/Header";
+import Modal from "../components/Modal";
+import Section from "../components/Section";
+import Title from "../components/Title";
+import TodoList from "../components/TodoList";
 
 const Btn = styled.button`
   padding: 7px;
@@ -81,7 +81,7 @@ const myTodoList = () => {
       <Header token={token}>Header</Header>
       <Section>
         <Container>
-          <Title title={`${owner.firstName} ${owner.lastName}`} />
+          <Title title={owner.userName} />
 
           <TodoList
             token={token}

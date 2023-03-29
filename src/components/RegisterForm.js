@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { authApi } from "@/utils/authApi";
+import { authApi } from "../utils/authApi";
 
 import Container from "./Container";
 import Section from "./Section";
@@ -14,6 +14,8 @@ import LinkText from "./LinkText";
 import SubmitBtn from "./SubmitBtn";
 import FormTitle from "./FormTitle";
 import Icon from "./Icon";
+import axios from "axios";
+import PopUp from "./PopUp";
 
 const FormWrap = styled.div`
   display: flex;
@@ -37,6 +39,7 @@ const ErrorText = styled.p`
 const RegisterForm = () => {
   const [type, setType] = useState("password");
   const [typeConfirmation, setTypeConfirmation] = useState("password");
+  const [error, setError] = useState(null);
 
   const toggleType = () =>
     type === "password" ? setType("text") : setType("password");
@@ -46,10 +49,23 @@ const RegisterForm = () => {
       ? setTypeConfirmation("text")
       : setTypeConfirmation("password");
 
+  const registerUser = async (values) => {
+    try {
+      const data = await authApi.register(values);
+      console.log(data, "data from back");
+      router.push("/login");
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data);
+      }
+    }
+  };
+
   const router = useRouter();
 
   return (
     <Section>
+      {error && <PopUp error={error.message} />}
       <Container>
         <FormTitle title={"Create your own TODO list :)"} />
         <Formik
@@ -61,12 +77,7 @@ const RegisterForm = () => {
             confirmPassword: "",
             email: "",
           }}
-          onSubmit={async (values) => {
-            console.log(values);
-            const data = await authApi.register(values);
-            console.log(data);
-            router.push("/login");
-          }}
+          onSubmit={(values) => registerUser(values)}
           validationSchema={Yup.object().shape({
             firstName: Yup.string().min(3).required().label("First name"),
             userName: Yup.string().min(3).required().label("User name"),
@@ -138,6 +149,7 @@ const RegisterForm = () => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       placeholder={"Email"}
+                      autoComplete={"email"}
                     />
                     {errors.email && <ErrorText>{errors.email}</ErrorText>}
                   </Input>
@@ -150,6 +162,7 @@ const RegisterForm = () => {
                         onBlur={handleBlur}
                         value={values.password}
                         placeholder={"Password"}
+                        autoComplete={"new-password"}
                       />
                       <Icon onClick={toggleType} type={type} />
                     </div>
@@ -166,6 +179,7 @@ const RegisterForm = () => {
                         onBlur={handleBlur}
                         value={values.confirmPassword}
                         placeholder={"Confirm password"}
+                        autoComplete={"new-password"}
                       />
                       <Icon
                         onClick={toggleConfirmationType}

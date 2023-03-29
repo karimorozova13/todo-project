@@ -25,31 +25,7 @@ const valideteSchema = Joi.object({
 
 const Todo = model("todo", todoShema);
 
-const getAll = async (owner) => {
-  return Todo.find({ owner }).populate(
-    "owner",
-    "firstName lastName userName email"
-  );
-};
-const getTodo = async (id) => {
-  return Todo.findOne({ _id: id });
-};
-const addTodo = async (req, res) => {
-  const { id: owner } = req.user;
-  return Todo.create({ ...req.body, owner });
-};
-const updateTodo = async (id, fields) => {
-  return Todo.findByIdAndUpdate({ _id: id }, fields, { new: true });
-};
-const removeTodo = async (id) => {
-  return Todo.findByIdAndRemove({ _id: id });
-};
-
 module.exports = {
-  getAll,
-  getTodo,
-  addTodo,
-  updateTodo,
-  removeTodo,
-  valideteSchema,
+  Todo,
+  schema: valideteSchema,
 };

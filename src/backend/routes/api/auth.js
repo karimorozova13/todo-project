@@ -1,11 +1,15 @@
-const { auth } = require("../../middlewares");
+const { basedir } = global;
+
+const { catchError } = require(`${basedir}/utils/helpers`);
 const express = require("express");
-const authCtrl = require("../../controller/auth");
+
+const { auth } = require(`${basedir}/middlewares`);
+const authCtrl = require(`${basedir}/controller/auth`);
 
 const router = express.Router();
 
 // signup
-router.post("/register", authCtrl.register);
+router.post("/register", catchError(authCtrl.register));
 router.get("/current", auth, authCtrl.current);
 router.get("/logout", auth, authCtrl.logout);
 

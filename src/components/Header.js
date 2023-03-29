@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { AiOutlineLogout } from "react-icons/ai";
 import { useRouter } from "next/router";
-import { authApi } from "@/utils/authApi";
+import { authApi } from "../utils/authApi";
 
 const HeaderWrap = styled.div`
   padding: 15px;

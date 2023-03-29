@@ -2,7 +2,7 @@ const current = async (req, res) => {
   try {
     res.json({
       status: "success",
-      code: 204,
+      code: 200,
       data: {
         user: req.user,
       },
