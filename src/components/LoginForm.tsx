@@ -7,15 +7,15 @@ import { useRouter } from "next/router";
 
 import { authApi } from "../utils/authApi";
 
-import Container from "./Container";
-import Input from "./Input";
 import SubmitBtn from "./SubmitBtn";
-import LinkText from "./LinkText";
-import FormTitle from "./FormTitle";
 import Icon from "./Icon";
 import PopUp from "./PopUp";
 import axios from "axios";
 import TInputType from "../types/Password.type";
+import Container from "./Container";
+import FormTitle from "./FormTitle";
+import Input from "./Input";
+import LinkText from "./LinkText";
 
 const FormWrap = styled.div`
   padding: 200px 0;

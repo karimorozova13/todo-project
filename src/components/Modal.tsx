@@ -70,12 +70,22 @@ const SubmitBtn = styled.button`
     color: teal;
   }
 `;
-
-const Modal = ({ todo = "", updateTodo, closeModal, btnTitle = "Edit" }) => {
+interface IProps {
+  todo?: string;
+  btnTitle: string;
+  closeModal(): void;
+  updateTodo(val: string): void;
+}
+const Modal = ({
+  todo = "",
+  updateTodo,
+  closeModal,
+  btnTitle = "Edit",
+}: IProps) => {
   const [value, setValue] = useState(todo);
 
-  const saveChanges = async (e) => {
-    if (e.keyCode === 13) await updateTodo(e.target.value);
+  const saveChanges = async (e: KeyboardEvent) => {
+    if (e.key === "Enter") await updateTodo(value);
   };
 
   useEffect(() => {

@@ -7,16 +7,17 @@ import { useRouter } from "next/router";
 
 import { authApi } from "../utils/authApi";
 
-import Container from "./Container";
 import Section from "./Section";
-import Input from "./Input";
-import LinkText from "./LinkText";
+
 import SubmitBtn from "./SubmitBtn";
-import FormTitle from "./FormTitle";
 import Icon from "./Icon";
 import axios from "axios";
 import PopUp from "./PopUp";
 import TInputType from "../types/Password.type";
+import Container from "./Container";
+import FormTitle from "./FormTitle";
+import Input from "./Input";
+import LinkText from "./LinkText";
 
 const FormWrap = styled.div`
   display: flex;

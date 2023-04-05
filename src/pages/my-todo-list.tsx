@@ -4,12 +4,13 @@ import styled from "styled-components";
 import { todoListApi } from "../utils/todoApi";
 import { authApi } from "../utils/authApi";
 
-import Container from "../components/Container";
-import Header from "../components/Header";
-import Modal from "../components/Modal";
 import Section from "../components/Section";
 import Title from "../components/Title";
 import TodoList from "../components/TodoList";
+import ITodo from "../interfaces/Todo.interface";
+import Container from "../components/Container";
+import Header from "../components/Header";
+import Modal from "../components/Modal";
 
 const Btn = styled.button`
   padding: 7px;
@@ -31,14 +32,7 @@ const Btn = styled.button`
     color: teal;
   }
 `;
-interface ITodo {
-  title: string;
-  isCompleted: boolean;
-  _id: string;
-  owner: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+
 interface IOwner {
   firstName: string;
   lastName: string;

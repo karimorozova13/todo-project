@@ -8,7 +8,9 @@ const Title = styled.h1`
   width: fit-content;
   margin-bottom: 60px;
 `;
-
-const FormTitle = ({ title }) => <Title>{title}</Title>;
+interface IProps {
+  title: string;
+}
+const FormTitle = ({ title }: IProps) => <Title>{title}</Title>;
 
 export default FormTitle;

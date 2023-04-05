@@ -15,8 +15,10 @@ const Wrap = styled.span`
   height: 22px;
   background-color: #f1f2f4;
 `;
-
-const Close = ({ onClick }) => {
+interface IProps {
+  onClick(): void;
+}
+const Close = ({ onClick }: IProps) => {
   return (
     <Wrap onClick={onClick}>
       <AiOutlineClose />

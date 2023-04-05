@@ -5,7 +5,6 @@ import { AiOutlineDelete } from "react-icons/ai";
 import Link from "next/link";
 
 import { todoListApi } from "../utils/todoApi";
-
 import Modal from "./Modal";
 
 const Item = styled.li`
