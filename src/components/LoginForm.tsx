@@ -13,23 +13,28 @@ import SubmitBtn from "./SubmitBtn";
 import LinkText from "./LinkText";
 import FormTitle from "./FormTitle";
 import Icon from "./Icon";
-import Section from "./Section";
 import PopUp from "./PopUp";
 import axios from "axios";
+import TInputType from "../types/Password.type";
 
 const FormWrap = styled.div`
   padding: 200px 0;
 `;
 
+interface IUser {
+  email: string;
+  password: string;
+}
+
 const LoginForm = () => {
   const router = useRouter();
-  const [type, setType] = useState("password");
+  const [type, setType] = useState<TInputType>("password");
   const [error, setError] = useState(null);
 
   const toggleType = () =>
     type === "password" ? setType("text") : setType("password");
 
-  const login = async (values) => {
+  const login = async (values: IUser) => {
     try {
       const res = await authApi.login(values);
       localStorage.setItem("token", res.token);
@@ -89,11 +94,7 @@ const LoginForm = () => {
                   </div>
                 </Input>
 
-                <SubmitBtn
-                  title={"Log in"}
-                  type="submit"
-                  onClick={handleSubmit}
-                />
+                <SubmitBtn title={"Log in"} onClick={handleSubmit} />
               </Form>
             );
           }}

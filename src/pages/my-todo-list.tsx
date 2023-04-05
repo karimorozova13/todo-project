@@ -31,12 +31,33 @@ const Btn = styled.button`
     color: teal;
   }
 `;
+interface ITodo {
+  title: string;
+  isCompleted: boolean;
+  _id: string;
+  owner: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+interface IOwner {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+  token: string;
+  _id: string;
+}
+type TModal = boolean;
+type TToken = string;
 
 const myTodoList = () => {
-  const [todoList, setTodoList] = useState([]);
-  const [isAddNewTask, setIsAddNewTask] = useState(false);
-  const [token, setToken] = useState("");
-  const [owner, setOwner] = useState("");
+  const [todoList, setTodoList] = useState<ITodo[]>([]);
+  const [isAddNewTask, setIsAddNewTask] = useState<TModal>(false);
+  const [token, setToken] = useState<TToken>("");
+  const [owner, setOwner] = useState<IOwner>(null);
 
   const fetchTodoList = async () => {
     try {
@@ -56,7 +77,7 @@ const myTodoList = () => {
     }
   };
 
-  const addNewTask = async (val) => {
+  const addNewTask = async (val: string) => {
     try {
       await todoListApi.addNew(val, token);
       await fetchTodoList();
@@ -78,10 +99,10 @@ const myTodoList = () => {
 
   return (
     <>
-      <Header token={token}>Header</Header>
+      <Header />
       <Section>
         <Container>
-          <Title title={owner.userName} />
+          {owner && <Title title={owner.userName} />}
 
           <TodoList
             token={token}

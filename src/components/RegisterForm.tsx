@@ -16,6 +16,7 @@ import FormTitle from "./FormTitle";
 import Icon from "./Icon";
 import axios from "axios";
 import PopUp from "./PopUp";
+import TInputType from "../types/Password.type";
 
 const FormWrap = styled.div`
   display: flex;
@@ -36,9 +37,19 @@ const ErrorText = styled.p`
   width: 100%;
 `;
 
+interface IUser {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 const RegisterForm = () => {
-  const [type, setType] = useState("password");
-  const [typeConfirmation, setTypeConfirmation] = useState("password");
+  const [type, setType] = useState<TInputType>("password");
+  const [typeConfirmation, setTypeConfirmation] =
+    useState<TInputType>("password");
   const [error, setError] = useState(null);
 
   const toggleType = () =>
@@ -49,10 +60,9 @@ const RegisterForm = () => {
       ? setTypeConfirmation("text")
       : setTypeConfirmation("password");
 
-  const registerUser = async (values) => {
+  const registerUser = async (values: IUser) => {
     try {
       const data = await authApi.register(values);
-      console.log(data, "data from back");
       router.push("/login");
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -192,11 +202,7 @@ const RegisterForm = () => {
                   </Input>
                 </FormWrap>
 
-                <SubmitBtn
-                  title={"Register"}
-                  type="submit"
-                  onClick={handleSubmit}
-                />
+                <SubmitBtn title={"Register"} onClick={handleSubmit} />
               </Form>
             );
           }}
