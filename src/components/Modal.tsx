@@ -84,10 +84,10 @@ const Modal = ({
 }: IProps) => {
   const [value, setValue] = useState(todo);
 
-  const saveChanges = async (e: KeyboardEvent) => {
-    console.log(e);
+  const saveChanges = (e: KeyboardEvent) => {
+    const valueFromInput = (e.target as HTMLInputElement).value;
 
-    if (e.key === "Enter") await updateTodo(e.target.value);
+    if (e.key === "Enter") updateTodo(valueFromInput);
   };
 
   useEffect(() => {
@@ -109,9 +109,7 @@ const Modal = ({
         </Close>
         <Title>{"Next up:"}</Title>
         <input value={value} onChange={(e) => setValue(e.target.value)} />
-        <SubmitBtn onClick={async () => await updateTodo(value)}>
-          {btnTitle}
-        </SubmitBtn>
+        <SubmitBtn onClick={() => updateTodo(value)}>{btnTitle}</SubmitBtn>
       </ModalWrap>
     </Backdrop>
   );

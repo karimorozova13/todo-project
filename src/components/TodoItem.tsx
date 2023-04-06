@@ -94,11 +94,9 @@ const TodoItem = ({ el, token, refreshData = async () => {} }: IProps) => {
   }, []);
 
   const saveTodo = async (val: string, isCompleted: boolean) => {
-    console.log(val, "item");
-
     try {
       setTodo(val);
-      const res = await todoListApi.updateOne(el._id, val, isCompleted, token);
+      await todoListApi.updateOne(el._id, val, isCompleted, token);
     } catch (error) {
       console.log(error);
     } finally {
@@ -108,8 +106,9 @@ const TodoItem = ({ el, token, refreshData = async () => {} }: IProps) => {
 
   const deleteTodo = async () => {
     try {
-      const res = await todoListApi.deleteOne(el._id, token);
-      await refreshData();
+      await todoListApi.deleteOne(el._id, token).then((res) => {
+        refreshData();
+      });
     } catch (error) {
       console.log(error);
     }
