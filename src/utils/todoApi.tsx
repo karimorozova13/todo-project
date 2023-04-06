@@ -1,11 +1,27 @@
 import axios from "axios";
+import ITodo from "../interfaces/Todo.interface";
 
 const apiConfig = axios.create({
   baseURL: "http://localhost:3002/",
   headers: {},
 });
 
-export const todoListApi = {
+interface ITodoApi {
+  getAll(token: string): Promise<ITodo[] | null>;
+  addNew(val: string, token: string): Promise<ITodo>;
+  updateOne(
+    id: string,
+    title: string,
+    isCompleted: boolean,
+    token: string
+  ): Promise<ITodo>;
+  deleteOne(id: string, token: string): Promise<ITodo>;
+  getByid(
+    id: string | string[],
+    token: string
+  ): Promise<{ data: { todo: ITodo } }>;
+}
+export const todoListApi: ITodoApi = {
   getAll: async (token) => {
     const res = await apiConfig.get("api/todoApi", {
       headers: {

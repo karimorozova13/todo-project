@@ -2,14 +2,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
-import Section from "../../components/Section";
-import Title from "../../components/Title";
-
-import { todoListApi } from "../../utils/todoApi";
 import styled from "styled-components";
 import ITodo from "../../interfaces/Todo.interface";
 import Container from "../../components/Container";
 import Header from "../../components/Header";
+import Section from "../../components/Section";
+import Title from "../../components/Title";
+import { todoListApi } from "../../utils/todoApi";
 
 const Back = styled.div`
   margin-bottom: 40px;

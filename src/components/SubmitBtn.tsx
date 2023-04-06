@@ -20,7 +20,12 @@ const Btn = styled.button`
     color: teal;
   }
 `;
-
-const SubmitBtn = ({ title, onClick }) => <Btn onClick={onClick}>{title}</Btn>;
+interface IProps {
+  title: string;
+  onClick(): void;
+}
+const SubmitBtn = ({ title, onClick }: IProps) => (
+  <Btn onClick={onClick}>{title}</Btn>
+);
 
 export default SubmitBtn;

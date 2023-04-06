@@ -20,8 +20,10 @@ const Wrap = styled.div`
     color: red;
   }
 `;
-
-const PopUp = ({ error }) => {
+interface IProps {
+  error: string;
+}
+const PopUp = ({ error }: IProps) => {
   const [isShow, setIsShow] = useState(true);
   useEffect(() => {
     error ? setIsShow(true) : setIsShow(false);

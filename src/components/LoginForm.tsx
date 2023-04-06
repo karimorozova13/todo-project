@@ -5,17 +5,16 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { authApi } from "../utils/authApi";
-
-import SubmitBtn from "./SubmitBtn";
 import Icon from "./Icon";
-import PopUp from "./PopUp";
 import axios from "axios";
 import TInputType from "../types/Password.type";
 import Container from "./Container";
 import FormTitle from "./FormTitle";
 import Input from "./Input";
 import LinkText from "./LinkText";
+import PopUp from "./PopUp";
+import SubmitBtn from "./SubmitBtn";
+import { authApi } from "../utils/authApi";
 
 const FormWrap = styled.div`
   padding: 200px 0;
@@ -45,7 +44,6 @@ const LoginForm = () => {
       }
     }
   };
-  console.log(error);
   return (
     <Container>
       {error && <PopUp error={"Email or password is incorrect"} />}

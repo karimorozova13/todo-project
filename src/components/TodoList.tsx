@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import ITodo from "../interfaces/Todo.interface";
 import TodoItem from "./TodoItem";
 
 const List = styled.ul`
@@ -8,8 +9,16 @@ const List = styled.ul`
   flex-grow: 1;
   gap: 20px;
 `;
-
-const TodoList = ({ todoList, token, refreshData = async () => {} }) => {
+interface IProps {
+  todoList: ITodo[];
+  token: string;
+  refreshData(): void;
+}
+const TodoList = ({
+  todoList,
+  token,
+  refreshData = async () => {},
+}: IProps) => {
   return (
     <List>
       {todoList.map((el) => {

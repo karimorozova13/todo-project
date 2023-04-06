@@ -7,6 +7,9 @@ const UserTitle = styled.h1`
     font-size: 24px;
   }
 `;
-const Title = ({ title }) => <UserTitle>{title}</UserTitle>;
+interface IProps {
+  title: string;
+}
+const Title = ({ title }: IProps) => <UserTitle>{title}</UserTitle>;
 
 export default Title;

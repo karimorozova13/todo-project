@@ -5,11 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { authApi } from "../utils/authApi";
-
-import Section from "./Section";
-
-import SubmitBtn from "./SubmitBtn";
 import Icon from "./Icon";
 import axios from "axios";
 import PopUp from "./PopUp";
@@ -18,6 +13,9 @@ import Container from "./Container";
 import FormTitle from "./FormTitle";
 import Input from "./Input";
 import LinkText from "./LinkText";
+import Section from "./Section";
+import SubmitBtn from "./SubmitBtn";
+import { authApi } from "../utils/authApi";
 
 const FormWrap = styled.div`
   display: flex;

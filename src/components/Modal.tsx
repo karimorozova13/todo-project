@@ -72,7 +72,7 @@ const SubmitBtn = styled.button`
 `;
 interface IProps {
   todo?: string;
-  btnTitle: string;
+  btnTitle?: string;
   closeModal(): void;
   updateTodo(val: string): void;
 }
@@ -85,7 +85,9 @@ const Modal = ({
   const [value, setValue] = useState(todo);
 
   const saveChanges = async (e: KeyboardEvent) => {
-    if (e.key === "Enter") await updateTodo(value);
+    console.log(e);
+
+    if (e.key === "Enter") await updateTodo(e.target.value);
   };
 
   useEffect(() => {

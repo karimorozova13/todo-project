@@ -4,8 +4,9 @@ import { MdModeEditOutline, MdDone } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
 import Link from "next/link";
 
-import { todoListApi } from "../utils/todoApi";
 import Modal from "./Modal";
+import ITodo from "../interfaces/Todo.interface";
+import { todoListApi } from "../utils/todoApi";
 
 const Item = styled.li`
   list-style: none;
@@ -28,7 +29,7 @@ const Item = styled.li`
     text-decoration: none;
   }
 `;
-const ItemTitle = styled.h3`
+const ItemTitle = styled.h3<ITitle>`
   font-size: 16px;
   text-decoration: ${({ isCompleted }) =>
     isCompleted ? "line-through" : "none"};
@@ -72,8 +73,17 @@ const Btn = styled.button`
     opacity: 0.6;
   }
 `;
+interface ITitle {
+  isCompleted: boolean;
+}
 
-const TodoItem = ({ el, token, refreshData = async () => {} }) => {
+interface IProps {
+  el: ITodo;
+  token: string;
+  refreshData(): void;
+}
+
+const TodoItem = ({ el, token, refreshData = async () => {} }: IProps) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [todo, setTodo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -83,7 +93,9 @@ const TodoItem = ({ el, token, refreshData = async () => {} }) => {
     setIsCompleted(el.isCompleted);
   }, []);
 
-  const saveTodo = async (val, isCompleted) => {
+  const saveTodo = async (val: string, isCompleted: boolean) => {
+    console.log(val, "item");
+
     try {
       setTodo(val);
       const res = await todoListApi.updateOne(el._id, val, isCompleted, token);
@@ -134,7 +146,7 @@ const TodoItem = ({ el, token, refreshData = async () => {} }) => {
         <Modal
           todo={todo}
           closeModal={() => setIsEdit(false)}
-          updateTodo={(value) => saveTodo(value, isCompleted)}
+          updateTodo={async (value) => await saveTodo(value, isCompleted)}
         />
       )}
     </Item>
