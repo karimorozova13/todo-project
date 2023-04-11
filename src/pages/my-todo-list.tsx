@@ -31,6 +31,36 @@ const Btn = styled.button`
     color: teal;
   }
 `;
+const Avatar = styled.div`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+  }
+`;
+const User = styled.div`
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+`;
 
 interface IOwner {
   firstName: string;
@@ -41,16 +71,19 @@ interface IOwner {
   createdAt: Date;
   updatedAt: Date;
   token: string;
+  avatarUrl: string;
   _id: string;
 }
 type TModal = boolean;
 type TToken = string;
+type TAvatarUrl = string;
 
 const myTodoList = () => {
   const [todoList, setTodoList] = useState<ITodo[]>([]);
   const [isAddNewTask, setIsAddNewTask] = useState<TModal>(false);
   const [token, setToken] = useState<TToken>("");
   const [owner, setOwner] = useState<IOwner>(null);
+  const [avatarUrl, setAvatarUrl] = useState<TAvatarUrl>("");
 
   const fetchTodoList = async () => {
     try {
@@ -65,6 +98,7 @@ const myTodoList = () => {
     try {
       const data = await authApi.current(token);
       setOwner(data);
+      setAvatarUrl(data.avatarUrl);
     } catch (error) {
       console.log(error);
     }
@@ -80,9 +114,24 @@ const myTodoList = () => {
       setIsAddNewTask(false);
     }
   };
+  const setAvatar = async (file: File) => {
+    try {
+      const avatar = new FormData();
+      avatar.append("avatar", file);
+
+      const newPath = await authApi.upload(token, avatar);
+
+      setAvatarUrl(newPath.url);
+
+      await fetchOwner();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const tokenLS = localStorage.getItem("token");
+
     setToken(tokenLS);
     if (token) {
       fetchTodoList();
@@ -95,7 +144,19 @@ const myTodoList = () => {
       <Header />
       <Section>
         <Container>
-          {owner && <Title title={owner.userName} />}
+          {owner && (
+            <User>
+              <Avatar>
+                <img src={avatarUrl} alt={"User avatar"} />
+                <input
+                  type={"file"}
+                  name={"avatar"}
+                  onChange={(e) => setAvatar(e.currentTarget.files[0])}
+                />
+              </Avatar>
+              <Title title={owner.userName} />
+            </User>
+          )}
 
           <TodoList
             token={token}

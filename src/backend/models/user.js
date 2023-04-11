@@ -20,6 +20,10 @@ const userSchema = new Schema(
       required: true,
       isUnique: true,
     },
+    avatarUrl: {
+      type: String,
+      required: true,
+    },
     password: {
       type: String,
       minlength: 6,

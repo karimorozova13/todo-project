@@ -3,7 +3,8 @@ const { basedir } = global;
 const { catchError } = require(`${basedir}/utils/helpers`);
 const express = require("express");
 
-const { auth } = require(`${basedir}/middlewares`);
+const { auth, upload } = require(`${basedir}/middlewares`);
+
 const authCtrl = require(`${basedir}/controller/auth`);
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.get("/logout", auth, authCtrl.logout);
 
 // signin
 router.post("/login", authCtrl.login);
+router.patch("/avatars", auth, upload.single("avatar"), authCtrl.addAvatar);
 
 module.exports = router;

@@ -28,6 +28,7 @@ interface ICurrent {
   password: string;
   confirmPassword: string;
   email: string;
+  avatarUrl: string;
 }
 interface IAuthApi {
   register(values: IRegisterValues): Promise<{
@@ -40,6 +41,7 @@ interface IAuthApi {
   }>;
   current(token: string): Promise<ICurrent>;
   logout(token: string): void;
+  upload(token: string, avatar: FormData): Promise<{ url: string }>;
 }
 
 export const authApi: IAuthApi = {
@@ -65,5 +67,13 @@ export const authApi: IAuthApi = {
         authorization: `Bearer ${token}`,
       },
     });
+  },
+  upload: async (token, avatar) => {
+    const res = await apiConfig.patch("api/auth/avatars", avatar, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
   },
 };

@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -13,10 +14,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use("/public", express.static(path.join(global.basedir, "public")));
 // connect routes, errors
 const todoRouter = require("./routes/api/todos");
 const authRouter = require("./routes/api/auth");
+const { basename } = require("path");
 
 app.use("/api/todoApi", todoRouter);
 app.use("/api/auth", authRouter);
