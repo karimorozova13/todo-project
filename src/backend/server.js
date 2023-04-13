@@ -49,6 +49,7 @@ mongoose
     app.listen(PORT);
   })
   .catch((e) => {
+    console.log(33);
     console.log(e);
     process.exit(1);
   });

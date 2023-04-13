@@ -2,7 +2,7 @@ import axios from "axios";
 import ITodo from "../interfaces/Todo.interface";
 
 const apiConfig = axios.create({
-  baseURL: "http://localhost:3002/",
+  baseURL: "http://localhost:3003/",
   headers: {},
 });
 

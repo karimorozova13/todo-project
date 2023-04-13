@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { MdAddAPhoto } from "react-icons/md";
 
 import ITodo from "../interfaces/Todo.interface";
 import Container from "../components/Container";
@@ -10,6 +11,7 @@ import Title from "../components/Title";
 import TodoList from "../components/TodoList";
 import { todoListApi } from "../utils/todoApi";
 import { authApi } from "../utils/authApi";
+import Loader from "../components/Loader";
 
 const Btn = styled.button`
   padding: 7px;
@@ -40,6 +42,7 @@ const Avatar = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  background-color: #ccc;
   img {
     width: 100%;
     height: 100%;
@@ -84,38 +87,51 @@ const myTodoList = () => {
   const [token, setToken] = useState<TToken>("");
   const [owner, setOwner] = useState<IOwner>(null);
   const [avatarUrl, setAvatarUrl] = useState<TAvatarUrl>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchTodoList = async () => {
     try {
+      setIsLoading(true);
       const data = await todoListApi.getAll(token);
       setTodoList(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const fetchOwner = async () => {
     try {
+      setIsLoading(true);
+
       const data = await authApi.current(token);
       setOwner(data);
       setAvatarUrl(data.avatarUrl);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const addNewTask = async (val: string) => {
     try {
+      setIsLoading(true);
+
       await todoListApi.addNew(val, token);
       await fetchTodoList();
     } catch (error) {
       console.log(error);
     } finally {
       setIsAddNewTask(false);
+      setIsLoading(false);
     }
   };
   const setAvatar = async (file: File) => {
     try {
+      setIsLoading(true);
+
       const avatar = new FormData();
       avatar.append("avatar", file);
 
@@ -126,6 +142,8 @@ const myTodoList = () => {
       await fetchOwner();
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -147,7 +165,15 @@ const myTodoList = () => {
           {owner && (
             <User>
               <Avatar>
-                <img src={avatarUrl} alt={"User avatar"} />
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt={"User avatar"} />
+                ) : (
+                  <>
+                    <MdAddAPhoto />
+                    <p>{"Upload photo"}</p>
+                  </>
+                )}
+
                 <input
                   type={"file"}
                   name={"avatar"}
@@ -173,6 +199,7 @@ const myTodoList = () => {
           )}
         </Container>
       </Section>
+      {isLoading && <Loader />}
     </>
   );
 };
