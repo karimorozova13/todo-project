@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
 import styled from "styled-components";
-import ITodo from "../../interfaces/Todo.interface";
-import Container from "../../components/Container";
-import Header from "../../components/Header";
-import Section from "../../components/Section";
-import Title from "../../components/Title";
-import { todoListApi } from "../../utils/todoApi";
+import ITodo from "../../../shared/interfaces/Todo.interface";
+import { todoListApi } from "../../../shared/utils/todoApi";
+import Header from "../../src/components/Header";
+import Section from "../../src/components/Section";
+import Container from "../../src/components/Container";
+import Title from "../../src/components/Title";
+
 
 const Back = styled.div`
   margin-bottom: 40px;

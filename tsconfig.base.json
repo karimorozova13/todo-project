@@ -1,0 +1,6 @@
+// tsconfig.base.json
+{
+  "compilerOptions": {
+    "jsx": "preserve"
+  }
+}

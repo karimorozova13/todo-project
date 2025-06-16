@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const withTM = require('next-transpile-modules')(['@repo/shared']);
+
+const nextConfig = withTM({
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(jpe?g|png|svg|gif|ico|eot|ttf|woff|woff2|mp4|pdf|webm|txt|xml)$/,
@@ -62,6 +64,6 @@ const nextConfig = {
   },
   reactStrictMode: false,
   swcMinify: true,
-};
+});
 
 module.exports = nextConfig;

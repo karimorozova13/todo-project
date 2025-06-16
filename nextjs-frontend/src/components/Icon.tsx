@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import TInputType from "../types/Password.type";
+import TInputType from "../../shared/types/Password.type";
 
 const IconContainer = styled.span`
   position: absolute;

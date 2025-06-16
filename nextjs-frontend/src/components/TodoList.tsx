@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import ITodo from "../interfaces/Todo.interface";
+import ITodo from "../../shared/interfaces/Todo.interface";
 import TodoItem from "./TodoItem";
 
 const List = styled.ul`

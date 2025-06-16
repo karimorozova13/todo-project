@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdAddAPhoto } from "react-icons/md";
 
-import ITodo from "../interfaces/Todo.interface";
-import Container from "../components/Container";
-import Header from "../components/Header";
-import Modal from "../components/Modal";
-import Section from "../components/Section";
-import Title from "../components/Title";
-import TodoList from "../components/TodoList";
-import { todoListApi } from "../utils/todoApi";
-import { authApi } from "../utils/authApi";
-import Loader from "../components/Loader";
+import ITodo from "../../shared/interfaces/Todo.interface";
+import { todoListApi } from "../../shared/utils/todoApi";
+import { authApi } from "../../shared/utils/authApi";
+import Header from "../src/components/Header";
+import Section from "../src/components/Section";
+import Container from "../src/components/Container";
+import Title from "../src/components/Title";
+import TodoList from "../src/components/TodoList";
+import Modal from "../src/components/Modal";
+import Loader from "../src/components/Loader";
 
 const Btn = styled.button`
   padding: 7px;
