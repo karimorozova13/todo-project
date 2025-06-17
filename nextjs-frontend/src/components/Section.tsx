@@ -1,13 +1,5 @@
-import styled from "styled-components";
-
-const SectionWrap = styled.div`
-  width: 100%;
-  padding: 100px 0;
-  @media only screen and (max-width: 991px) {
-    padding: 60px 0;
-  }
-`;
-
-const Section = ({ children }) => <SectionWrap>{children}</SectionWrap>;
+const Section = ({ children }) => (
+  <div className="w-full py-[100px] max-[991px]:py-[60px]">{children}</div>
+);
 
 export default Section;

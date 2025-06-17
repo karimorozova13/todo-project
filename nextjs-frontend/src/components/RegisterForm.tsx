@@ -1,40 +1,20 @@
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 import Icon from "./Icon";
-import axios from "axios";
 import PopUp from "./PopUp";
-import TInputType from "../../shared/types/Password.type";
 import Container from "./Container";
 import FormTitle from "./FormTitle";
 import Input from "./Input";
 import LinkText from "./LinkText";
 import Section from "./Section";
 import SubmitBtn from "./SubmitBtn";
-import { authApi } from "../../../shared/utils/authApi";
-
-const FormWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 20px;
-  max-width: 600px;
-  margin: 0 auto;
-  justify-content: center;
-  margin-bottom: 40px;
-`;
-const ErrorText = styled.p`
-  color: red;
-  position: absolute;
-  right: 50%;
-  transform: translateX(50%);
-  top: 100%;
-  width: 100%;
-`;
+import TInputType from "@/utils/types/Password.type";
+import { authApi } from "@/utils/utils/authApi";
 
 interface IUser {
   firstName: string;
@@ -46,14 +26,15 @@ interface IUser {
 }
 
 const RegisterForm = () => {
+  const router = useRouter();
+
+  const [error, setError] = useState(null);
   const [type, setType] = useState<TInputType>("password");
   const [typeConfirmation, setTypeConfirmation] =
     useState<TInputType>("password");
-  const [error, setError] = useState(null);
 
   const toggleType = () =>
     type === "password" ? setType("text") : setType("password");
-
   const toggleConfirmationType = () =>
     typeConfirmation === "password"
       ? setTypeConfirmation("text")
@@ -69,8 +50,6 @@ const RegisterForm = () => {
       }
     }
   };
-
-  const router = useRouter();
 
   return (
     <Section>
@@ -108,7 +87,7 @@ const RegisterForm = () => {
           {({ values, handleChange, handleBlur, handleSubmit, errors }) => {
             return (
               <Form>
-                <FormWrap>
+                <div className="flex flex-wrap w-full gap-6 max-w-[600px] mx-auto justify-center mb-10">
                   <Input>
                     <Field
                       type="text"
@@ -117,12 +96,14 @@ const RegisterForm = () => {
                       value={values.firstName}
                       onBlur={handleBlur}
                       placeholder={"First Name"}
+                      className="min-h-[40px] min-w-[290px] max-[767px]:min-w-[250px] p-[7px] border border-[#ccc] bg-[#eee] outline-none cursor-pointer rounded-[6px] placeholder:text-[#ccc] placeholder:text-sm w-full"
                     />
                     {errors.firstName && (
-                      <ErrorText>{errors.firstName}</ErrorText>
+                      <p className="text-red-500 absolute right-1/2 translate-x-1/2 top-full w-full">
+                        {errors.firstName}
+                      </p>
                     )}
                   </Input>
-
                   <Input>
                     <Field
                       type="text"
@@ -131,9 +112,12 @@ const RegisterForm = () => {
                       value={values.lastName}
                       onBlur={handleBlur}
                       placeholder={"Last Name"}
+                      className="min-h-[40px] min-w-[290px] max-[767px]:min-w-[250px] p-[7px] border border-[#ccc] bg-[#eee] outline-none cursor-pointer rounded-[6px] placeholder:text-[#ccc] placeholder:text-sm w-full"
                     />
                     {errors.lastName && (
-                      <ErrorText>{errors.lastName}</ErrorText>
+                      <p className="text-red-500 absolute right-1/2 translate-x-1/2 top-full w-full">
+                        {errors.lastName}
+                      </p>
                     )}
                   </Input>
 
@@ -145,9 +129,12 @@ const RegisterForm = () => {
                       value={values.userName}
                       onBlur={handleBlur}
                       placeholder={"User Name"}
+                      className="min-h-[40px] min-w-[290px] max-[767px]:min-w-[250px] p-[7px] border border-[#ccc] bg-[#eee] outline-none cursor-pointer rounded-[6px] placeholder:text-[#ccc] placeholder:text-sm w-full"
                     />
                     {errors.userName && (
-                      <ErrorText>{errors.userName}</ErrorText>
+                      <p className="text-red-500 absolute right-1/2 translate-x-1/2 top-full w-full">
+                        {errors.userName}
+                      </p>
                     )}
                   </Input>
                   <Input>
@@ -159,8 +146,13 @@ const RegisterForm = () => {
                       onChange={handleChange}
                       placeholder={"Email"}
                       autoComplete={"email"}
+                      className="min-h-[40px] min-w-[290px] max-[767px]:min-w-[250px] p-[7px] border border-[#ccc] bg-[#eee] outline-none cursor-pointer rounded-[6px] placeholder:text-[#ccc] placeholder:text-sm w-full"
                     />
-                    {errors.email && <ErrorText>{errors.email}</ErrorText>}
+                    {errors.email && (
+                      <p className="text-red-500 absolute right-1/2 translate-x-1/2 top-full w-full">
+                        {errors.email}
+                      </p>
+                    )}
                   </Input>
                   <Input>
                     <div>
@@ -172,11 +164,14 @@ const RegisterForm = () => {
                         value={values.password}
                         placeholder={"Password"}
                         autoComplete={"new-password"}
+                        className="min-h-[40px] min-w-[290px] max-[767px]:min-w-[250px] p-[7px] border border-[#ccc] bg-[#eee] outline-none cursor-pointer rounded-[6px] placeholder:text-[#ccc] placeholder:text-sm w-full"
                       />
                       <Icon onClick={toggleType} type={type} />
                     </div>
                     {errors.password && (
-                      <ErrorText>{errors.password}</ErrorText>
+                      <p className="text-red-500 absolute right-1/2 translate-x-1/2 top-full w-full">
+                        {errors.password}
+                      </p>
                     )}
                   </Input>
                   <Input>
@@ -189,6 +184,7 @@ const RegisterForm = () => {
                         value={values.confirmPassword}
                         placeholder={"Confirm password"}
                         autoComplete={"new-password"}
+                        className="min-h-[40px] min-w-[290px] max-[767px]:min-w-[250px] p-[7px] border border-[#ccc] bg-[#eee] outline-none cursor-pointer rounded-[6px] placeholder:text-[#ccc] placeholder:text-sm w-full"
                       />
                       <Icon
                         onClick={toggleConfirmationType}
@@ -196,10 +192,12 @@ const RegisterForm = () => {
                       />
                     </div>
                     {errors.confirmPassword && (
-                      <ErrorText>{errors.confirmPassword}</ErrorText>
+                      <p className="text-red-500 absolute right-1/2 translate-x-1/2 top-full w-full">
+                        {errors.confirmPassword}
+                      </p>
                     )}
                   </Input>
-                </FormWrap>
+                </div>
 
                 <SubmitBtn title={"Register"} onClick={handleSubmit} />
               </Form>
@@ -208,7 +206,10 @@ const RegisterForm = () => {
         </Formik>
         <LinkText>
           {"Already have an account?"}
-          <Link href={"/login"}> {"Log in"}</Link>
+          <Link className="text-[#4682b4] no-underline" href={"/login"}>
+            {" "}
+            {"Log in"}
+          </Link>
         </LinkText>
       </Container>
     </Section>

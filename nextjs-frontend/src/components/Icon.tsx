@@ -1,26 +1,19 @@
-import styled from "styled-components";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
-import TInputType from "../../shared/types/Password.type";
 
-const IconContainer = styled.span`
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import TInputType from "@/utils/types/Password.type";
+
 interface IProps {
   type: TInputType;
   onClick(): void;
 }
 const Icon = ({ onClick, type }: IProps) => {
   return (
-    <IconContainer onClick={onClick}>
+    <span
+      className="absolute cursor-pointer top-0 right-0 h-full w-10 flex items-center justify-center"
+      onClick={onClick}
+    >
       {type === "password" ? <BsEye size={15} /> : <BsEyeSlash size={15} />}
-    </IconContainer>
+    </span>
   );
 };
 

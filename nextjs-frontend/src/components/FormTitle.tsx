@@ -1,16 +1,10 @@
-import styled from "styled-components";
-
-const Title = styled.h1`
-  font-size: 35px;
-  text-align: center;
-  color: teal;
-  margin: 0 auto;
-  width: fit-content;
-  margin-bottom: 60px;
-`;
 interface IProps {
   title: string;
 }
-const FormTitle = ({ title }: IProps) => <Title>{title}</Title>;
+const FormTitle = ({ title }: IProps) => (
+  <h1 className="text-[35px] text-center text-teal-500 mx-auto mb-[60px] w-fit">
+    {title}
+  </h1>
+);
 
 export default FormTitle;

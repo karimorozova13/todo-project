@@ -1,26 +1,9 @@
-import styled from "styled-components";
 import { Watch } from "react-loader-spinner";
 
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
-`;
-const ModalWrap = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
 const Loader = () => {
   return (
-    <Backdrop>
-      <ModalWrap>
+    <div className="fixed inset-0 w-screen h-screen bg-[#333] bg-opacity-50">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <Watch
           height="200"
           width="200"
@@ -30,8 +13,8 @@ const Loader = () => {
           wrapperStyle={{}}
           visible={true}
         />
-      </ModalWrap>
-    </Backdrop>
+      </div>
+    </div>
   );
 };
 

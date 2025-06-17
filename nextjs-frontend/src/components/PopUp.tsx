@@ -1,25 +1,8 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { MdOutlineErrorOutline } from "react-icons/md";
 
 import Close from "./Close";
 
-const Wrap = styled.div`
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  min-height: 60px;
-  min-width: 250px;
-  background-color: #f1f2f4;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  p {
-    color: red;
-  }
-`;
 interface IProps {
   error: string;
 }
@@ -32,11 +15,11 @@ const PopUp = ({ error }: IProps) => {
   return (
     <>
       {isShow && (
-        <Wrap>
+        <div className="fixed top-[25px] right-[25px] min-h-[60px] min-w-[250px] bg-[#f1f2f4] rounded-md flex justify-center items-center gap-[5px]">
           <MdOutlineErrorOutline size={20} color={"red"} />
-          <p> {error}</p>
+          <p className="text-red-500"> {error}</p>
           <Close onClick={() => setIsShow(false)} />
-        </Wrap>
+        </div>
       )}
     </>
   );

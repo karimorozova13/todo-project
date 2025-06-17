@@ -5,16 +5,17 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import TInputType from "@/utils/types/Password.type";
+import { authApi } from "@/utils/utils/authApi";
+
 import Icon from "./Icon";
 import axios from "axios";
-import TInputType from "../../shared/types/Password.type";
 import Container from "./Container";
 import FormTitle from "./FormTitle";
 import Input from "./Input";
 import LinkText from "./LinkText";
 import PopUp from "./PopUp";
 import SubmitBtn from "./SubmitBtn";
-import { authApi } from "../../../shared/utils/authApi";
 
 const FormWrap = styled.div`
   padding: 200px 0;
@@ -74,6 +75,7 @@ const LoginForm = () => {
                     value={values.email}
                     placeholder={"Email"}
                     autoComplete="email"
+                    className="min-h-[40px] min-w-[290px] max-[767px]:min-w-[250px] p-[7px] border border-[#ccc] bg-[#eee] outline-none cursor-pointer rounded-[6px] placeholder:text-[#ccc] placeholder:text-sm w-full"
                   />
                 </Input>
 
@@ -87,6 +89,7 @@ const LoginForm = () => {
                       value={values.password}
                       placeholder={"Password"}
                       autoComplete="password"
+                      className="min-h-[40px] min-w-[290px] max-[767px]:min-w-[250px] p-[7px] border border-[#ccc] bg-[#eee] outline-none cursor-pointer rounded-[6px] placeholder:text-[#ccc] placeholder:text-sm w-full"
                     />
                     <Icon onClick={toggleType} type={type} />
                   </div>
@@ -99,7 +102,10 @@ const LoginForm = () => {
         </Formik>
         <LinkText>
           {"Don't have an account?"}
-          <Link href={"/"}> {"Register"}</Link>
+          <Link className="text-[#4682b4] no-underline" href={"/"}>
+            {" "}
+            {"Register"}
+          </Link>
         </LinkText>
       </FormWrap>
     </Container>

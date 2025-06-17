@@ -2,19 +2,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
-import styled from "styled-components";
-import ITodo from "../../../shared/interfaces/Todo.interface";
-import { todoListApi } from "../../../shared/utils/todoApi";
-import Header from "../../src/components/Header";
-import Section from "../../src/components/Section";
-import Container from "../../src/components/Container";
-import Title from "../../src/components/Title";
+import ITodo from "@/utils/interfaces/Todo.interface";
+import { todoListApi } from "@/utils/utils/todoApi";
 
-
-const Back = styled.div`
-  margin-bottom: 40px;
-  cursor: pointer;
-`;
+import Header from "../../components/Header";
+import Section from "../../components/Section";
+import Container from "../../components/Container";
+import Title from "../../components/Title";
 
 const Id = () => {
   const [todo, setTodo] = useState<ITodo>(null);
@@ -39,13 +33,14 @@ const Id = () => {
       <Header />
       <Section>
         <Container>
-          <Back
+          <div
+            className="mb-10 cursor-pointer"
             onClick={() => {
               router.push("/my-todo-list");
             }}
           >
             <IoIosArrowBack size={25} color={"teal"} />
-          </Back>
+          </div>
           {todo && (
             <>
               <p>Task:</p>

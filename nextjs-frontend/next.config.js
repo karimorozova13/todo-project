@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['@repo/shared']);
 
-const nextConfig = withTM({
+const nextConfig ={
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(jpe?g|png|svg|gif|ico|eot|ttf|woff|woff2|mp4|pdf|webm|txt|xml)$/,
@@ -52,18 +51,11 @@ const nextConfig = withTM({
     domains: [],
     dangerouslyAllowSVG: true,
   },
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
-  },
   devIndicators: {
     buildActivityPosition: "bottom-left",
   },
-  compiler: {
-    styledComponents: true,
-  },
   reactStrictMode: false,
   swcMinify: true,
-});
+}
 
 module.exports = nextConfig;

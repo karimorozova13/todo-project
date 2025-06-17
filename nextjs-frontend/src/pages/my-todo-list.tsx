@@ -1,69 +1,17 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { MdAddAPhoto } from "react-icons/md";
 
-import ITodo from "../../shared/interfaces/Todo.interface";
-import { todoListApi } from "../../shared/utils/todoApi";
-import { authApi } from "../../shared/utils/authApi";
-import Header from "../src/components/Header";
-import Section from "../src/components/Section";
-import Container from "../src/components/Container";
-import Title from "../src/components/Title";
-import TodoList from "../src/components/TodoList";
-import Modal from "../src/components/Modal";
-import Loader from "../src/components/Loader";
+import { todoListApi } from "@/utils/utils/todoApi";
+import { authApi } from "@/utils/utils/authApi";
+import ITodo from "@/utils/interfaces/Todo.interface";
 
-const Btn = styled.button`
-  padding: 7px;
-  min-height: 40px;
-  width: 290px;
-  display: block;
-  margin-left: auto;
-  margin-top: 100px;
-  background-color: teal;
-  color: #fff;
-  border: 1px solid teal;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 250ms cubic-bezier(0.23, 1, 0.32, 1);
-
-  &:hover,
-  &:focus {
-    background-color: #fff;
-    color: teal;
-  }
-`;
-const Avatar = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  background-color: #ccc;
-  img {
-    width: 100%;
-    height: 100%;
-  }
-  input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    opacity: 0;
-  }
-`;
-const User = styled.div`
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 30px;
-`;
+import Header from "@/components/Header";
+import Section from "@/components/Section";
+import Container from "@/components/Container";
+import Title from "@/components/Title";
+import TodoList from "@/components/TodoList";
+import Modal from "@/components/Modal";
+import Loader from "@/components/Loader";
 
 interface IOwner {
   firstName: string;
@@ -163,10 +111,14 @@ const myTodoList = () => {
       <Section>
         <Container>
           {owner && (
-            <User>
-              <Avatar>
+            <div className="flex flex-col items-center gap-[30px] mb-[30px]">
+              <div className="w-[200px] h-[200px] rounded-full overflow-hidden flex items-center justify-center relative bg-[#ccc]">
                 {avatarUrl ? (
-                  <img src={avatarUrl} alt={"User avatar"} />
+                  <img
+                    src={avatarUrl}
+                    alt={"User avatar"}
+                    className="w-full h-full"
+                  />
                 ) : (
                   <>
                     <MdAddAPhoto />
@@ -178,10 +130,11 @@ const myTodoList = () => {
                   type={"file"}
                   name={"avatar"}
                   onChange={(e) => setAvatar(e.currentTarget.files[0])}
+                  className="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
                 />
-              </Avatar>
+              </div>
               <Title title={owner.userName} />
-            </User>
+            </div>
           )}
 
           <TodoList
@@ -189,7 +142,12 @@ const myTodoList = () => {
             refreshData={fetchTodoList}
             todoList={todoList}
           />
-          <Btn onClick={() => setIsAddNewTask(true)}>{"Add new task"}</Btn>
+          <button
+            className="px-[7px] min-h-[40px] w-[290px] block ml-auto mt-[100px] bg-teal-500 text-white border border-teal-500 rounded-md cursor-pointer transition-all duration-[250ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-white hover:text-teal-500"
+            onClick={() => setIsAddNewTask(true)}
+          >
+            {"Add new task"}
+          </button>
           {isAddNewTask && (
             <Modal
               closeModal={() => setIsAddNewTask(false)}

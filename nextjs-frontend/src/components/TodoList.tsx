@@ -1,26 +1,20 @@
-import styled from "styled-components";
+import ITodo from "@/utils/interfaces/Todo.interface";
 
-import ITodo from "../../shared/interfaces/Todo.interface";
 import TodoItem from "./TodoItem";
 
-const List = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  flex-grow: 1;
-  gap: 20px;
-`;
 interface IProps {
   todoList: ITodo[];
   token: string;
   refreshData(): void;
 }
+
 const TodoList = ({
   todoList,
   token,
   refreshData = async () => {},
 }: IProps) => {
   return (
-    <List>
+    <ul className="flex flex-wrap flex-grow gap-[20px]">
       {todoList.map((el) => {
         return (
           <TodoItem
@@ -31,7 +25,7 @@ const TodoList = ({
           />
         );
       })}
-    </List>
+    </ul>
   );
 };
 

@@ -1,81 +1,12 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { MdModeEditOutline, MdDone } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
 import Link from "next/link";
 
-import Modal from "./Modal";
-import ITodo from "../../shared/interfaces/Todo.interface";
-import { todoListApi } from "../../../shared/utils/todoApi";
+import ITodo from "@/utils/interfaces/Todo.interface";
+import { todoListApi } from "@/utils/utils/todoApi";
 
-const Item = styled.li`
-  list-style: none;
-  width: calc(100% / 3 - 40px / 3);
-  box-shadow: 6px 5px 15px 1px rgba(64, 54, 54, 0.9);
-  border-radius: 5px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-  @media only screen and (max-width: 991px) {
-    width: calc(100% / 2 - 20px / 2);
-  }
-  @media only screen and (max-width: 575px) {
-    width: 100%;
-  }
-  a {
-    color: lightblue;
-    text-decoration: none;
-  }
-`;
-const ItemTitle = styled.h3<ITitle>`
-  font-size: 16px;
-  text-decoration: ${({ isCompleted }) =>
-    isCompleted ? "line-through" : "none"};
-`;
-const CheckBoxWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-`;
-const CustomCheckBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #ccc;
-  background-color: #eee;
-  border-radius: 6px;
-`;
-const Buttons = styled.div`
-  margin-left: auto;
-  display: flex;
-  gap: 10px;
-`;
-const Btn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ccc;
-  outline: none;
-  background-color: #eee;
-  cursor: pointer;
-  transition: background-color 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
-  &:hover,
-  &:focus {
-    background-color: transparent;
-    opacity: 0.6;
-  }
-`;
-interface ITitle {
-  isCompleted: boolean;
-}
+import Modal from "./Modal";
 
 interface IProps {
   el: ITodo;
@@ -115,32 +46,44 @@ const TodoItem = ({ el, token, refreshData = async () => {} }: IProps) => {
   };
 
   return (
-    <Item>
-      <ItemTitle isCompleted={isCompleted}>{todo}</ItemTitle>
-      <CheckBoxWrap
+    <li className="list-none w-[calc(100%/3-40px/3)] shadow-[6px_5px_15px_1px_rgba(64,54,54,0.9)] rounded p-[10px] flex flex-col justify-between gap-[10px] max-[991px]:w-[calc(100%/2-20px/2)] max-[575px]:w-full">
+      <h3 className={`text-[16px] ${isCompleted ? "line-through" : ""}`}>
+        {todo}
+      </h3>
+      <div
+        className="flex items-center gap-[5px] cursor-pointer"
         onClick={async () => {
           setIsCompleted(!isCompleted);
           await saveTodo(todo, !isCompleted);
         }}
       >
-        <CustomCheckBox>
+        <div className="flex items-center justify-center w-[20px] h-[20px] border border-[#ccc] bg-[#eee] rounded-[6px]">
           {isCompleted && <MdDone color="green" size={20} />}
-        </CustomCheckBox>
+        </div>
         <p>{"Complete task"}</p>
-      </CheckBoxWrap>
-      <Link href={`/my-todo-list/${el._id}`}>Read more</Link>
-      <Buttons>
-        <Btn
+      </div>
+      <Link
+        className="text-blue-500 no-underline"
+        href={`/my-todo-list/${el._id}`}
+      >
+        Read more
+      </Link>
+      <div className="ml-auto flex gap-[10px]">
+        <button
+          className="flex justify-center items-center rounded-full w-[30px] h-[30px] border border-[#ccc] outline-none bg-[#eee] cursor-pointer transition-colors duration-250 ease-[cubic-bezier(0.075,0.82,0.165,1)] hover:bg-transparent hover:opacity-60 focus:bg-transparent focus:opacity-60"
           onClick={() => {
             setIsEdit(true);
           }}
         >
           <MdModeEditOutline />
-        </Btn>
-        <Btn onClick={async () => await deleteTodo()}>
+        </button>
+        <button
+          className="flex justify-center items-center rounded-full w-[30px] h-[30px] border border-[#ccc] outline-none bg-[#eee] cursor-pointer transition-colors duration-250 ease-[cubic-bezier(0.075,0.82,0.165,1)] hover:bg-transparent hover:opacity-60 focus:bg-transparent focus:opacity-60"
+          onClick={async () => await deleteTodo()}
+        >
           <AiOutlineDelete />
-        </Btn>
-      </Buttons>
+        </button>
+      </div>
       {isEdit && (
         <Modal
           todo={todo}
@@ -148,7 +91,7 @@ const TodoItem = ({ el, token, refreshData = async () => {} }: IProps) => {
           updateTodo={async (value) => await saveTodo(value, isCompleted)}
         />
       )}
-    </Item>
+    </li>
   );
 };
 
