@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -46,6 +46,7 @@ const Close = styled.span`
   position: absolute;
   top: 20px;
   right: 20px;
+  cursor: pointer;
 `;
 const Title = styled.p`
   font-size: 16px;
@@ -78,19 +79,43 @@ const SubmitBtn = styled.button`
 interface ModalProps {
   todo?: string;
   updateTodo: (value: string) => void;
+  closeModal?: () => void;
+  btnTitle?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ todo = "", updateTodo }) => {
+const Modal = ({
+  todo = "",
+  updateTodo,
+  closeModal,
+  btnTitle = "Edit",
+}: ModalProps) => {
   const [value, setValue] = useState(todo);
+
+  const saveChanges = async (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      const target = e.target as HTMLInputElement;
+      if (target?.value) {
+        updateTodo(target.value);
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keyup", saveChanges);
+    return () => {
+      document.removeEventListener("keyup", saveChanges);
+    };
+  });
+
   return (
     <Backdrop>
       <ModalWrap>
-        <Close onClick={() => updateTodo(value)}>
+        <Close onClick={closeModal}>
           <AiOutlineClose />
         </Close>
         <Title>{"Next up:"}</Title>
         <input value={value} onChange={(e) => setValue(e.target.value)} />
-        <SubmitBtn onClick={() => updateTodo(value)}>{"Edit"}</SubmitBtn>
+        <SubmitBtn onClick={() => updateTodo(value)}>{btnTitle}</SubmitBtn>
       </ModalWrap>
     </Backdrop>
   );

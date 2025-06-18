@@ -30,7 +30,7 @@ interface ContainerProps {
   children: React.ReactNode;
 }
 
-const Container: React.FC<ContainerProps> = ({ children }) => {
+const Container = ({ children }: ContainerProps) => {
   return <ContainerWrap>{children}</ContainerWrap>;
 };
 

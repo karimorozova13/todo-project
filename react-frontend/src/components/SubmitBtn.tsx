@@ -26,7 +26,8 @@ interface SubmitBtnProps {
   onClick?: () => void;
   type?: "submit" | "button";
 }
-const SubmitBtn: React.FC<SubmitBtnProps> = ({ title, onClick }) => {
+
+const SubmitBtn = ({ title, onClick }: SubmitBtnProps) => {
   return <Btn onClick={onClick}>{title}</Btn>;
 };
 

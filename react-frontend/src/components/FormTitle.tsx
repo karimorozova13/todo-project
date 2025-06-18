@@ -1,4 +1,3 @@
-import type React from "react";
 import styled from "styled-components";
 
 const Title = styled.h1`
@@ -13,7 +12,7 @@ const Title = styled.h1`
 interface FormTitleProps {
   title: string;
 }
-const FormTitle: React.FC<FormTitleProps> = ({ title }) => {
+const FormTitle = ({ title }: FormTitleProps) => {
   return <Title>{title}</Title>;
 };
 

@@ -1,7 +1,5 @@
-import React from "react";
-
 const NotFound = () => {
-  return <div></div>;
+  return <div>You shall not pass</div>;
 };
 
 export default NotFound;

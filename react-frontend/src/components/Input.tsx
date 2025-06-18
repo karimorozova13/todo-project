@@ -8,6 +8,14 @@ const InputContainer = styled.div`
   @media only screen and (max-width: 575px) {
     width: 100%;
   }
+  div {
+    position: relative;
+    width: 290px;
+    margin: 0 auto;
+    @media only screen and (max-width: 767px) {
+      width: 250px;
+    }
+  }
   input {
     min-height: 40px;
     min-width: 290px;
@@ -32,7 +40,7 @@ interface InputProps {
   style?: React.CSSProperties;
 }
 
-const Input: React.FC<InputProps> = ({ children, style = {} }) => {
+const Input = ({ children, style = {} }: InputProps) => {
   return <InputContainer style={style}>{children}</InputContainer>;
 };
 

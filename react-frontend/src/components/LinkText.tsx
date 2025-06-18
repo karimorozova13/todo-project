@@ -1,5 +1,6 @@
 import type React from "react";
 import styled from "styled-components";
+
 const LoginText = styled.p`
   color: #ccc;
   font-size: 14px;
@@ -14,7 +15,7 @@ const LoginText = styled.p`
 interface LinkTextProps {
   children: React.ReactNode;
 }
-const LinkText: React.FC<LinkTextProps> = ({ children }) => {
+const LinkText = ({ children }: LinkTextProps) => {
   return <LoginText>{children}</LoginText>;
 };
 

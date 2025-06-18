@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdModeEditOutline, MdDone } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
+import { Link } from "react-router-dom";
+
+import { todoListApi } from "../utils/utils/todoApi";
+
 import Modal from "./Modal";
 
 const Item = styled.li`
@@ -20,6 +24,9 @@ const Item = styled.li`
   }
   @media only screen and (max-width: 575px) {
     width: 100%;
+  }
+  a {
+    color: yellowgreen;
   }
 `;
 const ItemTitle = styled.h3<ItemTitleProps>`
@@ -64,6 +71,7 @@ const Btn = styled.button`
   background-color: #eee;
   cursor: pointer;
   transition: background-color 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
   &:hover,
   &:focus {
     background-color: transparent;
@@ -73,15 +81,22 @@ const Btn = styled.button`
 
 interface TodoItemProps {
   el: {
-    id: number;
+    _id: string;
     title: string;
     isCompleted: boolean;
   };
+  token: string;
+  refreshData?: () => void;
 }
 interface ItemTitleProps {
   isCompleted: boolean;
 }
-const TodoItem: React.FC<TodoItemProps> = ({ el }) => {
+
+const TodoItem = ({
+  el,
+  token,
+  refreshData = async () => {},
+}: TodoItemProps) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [todo, setTodo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -91,19 +106,42 @@ const TodoItem: React.FC<TodoItemProps> = ({ el }) => {
     setIsCompleted(el.isCompleted);
   }, [el.title, el.isCompleted]);
 
-  const saveTodo = (val: string) => {
-    setTodo(val);
-    setIsEdit(false);
+  const saveTodo = async (val: string, isCompleted: boolean) => {
+    try {
+      setTodo(val);
+      const res = await todoListApi.updateOne(el._id, val, isCompleted, token);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsEdit(false);
+    }
   };
+  const deleteTodo = async () => {
+    try {
+      const res = await todoListApi.deleteOne(el._id, token);
+      console.log(res);
+      await refreshData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Item>
       <ItemTitle isCompleted={isCompleted}>{todo}</ItemTitle>
-      <CheckBoxWrap onClick={() => setIsCompleted(!isCompleted)}>
+      <CheckBoxWrap
+        onClick={async () => {
+          setIsCompleted(!isCompleted);
+          await saveTodo(todo, !isCompleted);
+        }}
+      >
         <CustomCheckBox>
           {isCompleted && <MdDone color="green" size={20} />}
         </CustomCheckBox>
         <p>{"Complete task"}</p>
       </CheckBoxWrap>
+      <Link to={`/my-todo-list/${el._id}`}>Read more</Link>
       <Buttons>
         <Btn
           onClick={() => {
@@ -112,11 +150,17 @@ const TodoItem: React.FC<TodoItemProps> = ({ el }) => {
         >
           <MdModeEditOutline />
         </Btn>
-        <Btn>
+        <Btn onClick={async () => await deleteTodo()}>
           <AiOutlineDelete />
         </Btn>
       </Buttons>
-      {isEdit && <Modal todo={todo} updateTodo={(value) => saveTodo(value)} />}
+      {isEdit && (
+        <Modal
+          todo={todo}
+          closeModal={() => setIsEdit(false)}
+          updateTodo={(value) => saveTodo(value, isCompleted)}
+        />
+      )}
     </Item>
   );
 };

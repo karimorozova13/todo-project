@@ -12,7 +12,7 @@ interface TitleProps {
   title: string;
 }
 
-const Title: React.FC<TitleProps> = ({ title }) => {
+const Title = ({ title }: TitleProps) => {
   return <UserTitle>{title}</UserTitle>;
 };
 

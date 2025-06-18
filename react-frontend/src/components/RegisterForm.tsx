@@ -1,6 +1,10 @@
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import styled from "styled-components";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { authApi } from "../utils/utils/authApi";
 
 import Container from "./Container";
 import Section from "./Section";
@@ -8,9 +12,7 @@ import Input from "./Input";
 import LinkText from "./LinkText";
 import SubmitBtn from "./SubmitBtn";
 import FormTitle from "./FormTitle";
-import { useState } from "react";
 import Icon from "./Icon";
-import { Link } from "react-router-dom";
 
 const FormWrap = styled.div`
   display: flex;
@@ -22,8 +24,17 @@ const FormWrap = styled.div`
   justify-content: center;
   margin-bottom: 40px;
 `;
+const ErrorText = styled.p`
+  color: red;
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  top: 100%;
+  width: 100%;
+`;
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [type, setType] = useState<"password" | "text">("password");
   const [typeConfirmation, setTypeConfirmation] = useState<"password" | "text">(
     "password"
@@ -35,6 +46,7 @@ const RegisterForm = () => {
     typeConfirmation === "password"
       ? setTypeConfirmation("text")
       : setTypeConfirmation("password");
+
   return (
     <Section>
       <Container>
@@ -45,11 +57,14 @@ const RegisterForm = () => {
             lastName: "",
             userName: "",
             password: "",
-            confrimPassword: "",
+            confirmPassword: "",
             email: "",
           }}
-          onSubmit={(values) => {
+          onSubmit={async (values) => {
             console.log(values);
+            const data = await authApi.register(values);
+            console.log(data);
+            navigate("/login");
           }}
           validationSchema={Yup.object().shape({
             firstName: Yup.string().min(3).required().label("First name"),
@@ -79,13 +94,13 @@ const RegisterForm = () => {
                 /^(?=.{8,})/,
                 "Password must contain at least 8 characters"
               ),
-            confrimPassword: Yup.string()
+            confirmPassword: Yup.string()
               .required()
               .label("Confirm password")
               .oneOf([Yup.ref("password")], "Password shoud match"),
           })}
         >
-          {({ values, handleChange, handleBlur, handleSubmit }) => {
+          {({ values, handleChange, handleBlur, handleSubmit, errors }) => {
             return (
               <Form>
                 <FormWrap>
@@ -98,6 +113,9 @@ const RegisterForm = () => {
                       onBlur={handleBlur}
                       placeholder={"First Name"}
                     />
+                    {errors.firstName && (
+                      <ErrorText>{errors.firstName}</ErrorText>
+                    )}
                   </Input>
                   <Input>
                     <Field
@@ -108,6 +126,9 @@ const RegisterForm = () => {
                       onBlur={handleBlur}
                       placeholder={"Last Name"}
                     />
+                    {errors.lastName && (
+                      <ErrorText>{errors.lastName}</ErrorText>
+                    )}
                   </Input>
                   <Input>
                     <Field
@@ -118,6 +139,9 @@ const RegisterForm = () => {
                       onBlur={handleBlur}
                       placeholder={"User Name"}
                     />
+                    {errors.userName && (
+                      <ErrorText>{errors.userName}</ErrorText>
+                    )}
                   </Input>
                   <Input>
                     <Field
@@ -128,6 +152,7 @@ const RegisterForm = () => {
                       onChange={handleChange}
                       placeholder={"Email"}
                     />
+                    {errors.email && <ErrorText>{errors.email}</ErrorText>}
                   </Input>
                   <Input>
                     <Field
@@ -139,20 +164,26 @@ const RegisterForm = () => {
                       placeholder={"Password"}
                     />
                     <Icon onClick={toggleType} type={type} />
+                    {errors.password && (
+                      <ErrorText>{errors.password}</ErrorText>
+                    )}
                   </Input>
                   <Input>
                     <Field
                       type={typeConfirmation}
-                      name="confrimPassword"
+                      name="confirmPassword"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.confrimPassword}
+                      value={values.confirmPassword}
                       placeholder={"Confirm password"}
                     />
                     <Icon
                       onClick={toggleConfirmationType}
                       type={typeConfirmation}
                     />
+                    {errors.confirmPassword && (
+                      <ErrorText>{errors.confirmPassword}</ErrorText>
+                    )}
                   </Input>
                 </FormWrap>
 
