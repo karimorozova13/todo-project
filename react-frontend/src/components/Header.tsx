@@ -12,7 +12,7 @@ const HeaderWrap = styled.div`
   cursor: pointer;
   transition: opacity 250ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   &:hover,
-  Add commentMore actions &:focus {
+  &:focus {
     opacity: 0.6;
   }
 `;
