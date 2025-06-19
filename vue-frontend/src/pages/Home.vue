@@ -1,20 +1,11 @@
 <template>
-  <div>Kari
-
-  </div>
+<RegisterForm />
 </template>
 
-<script>
-export default {
-  setup () {
-
-
-    return {}
-  }
-}
+<script setup lang="ts">
+import RegisterForm from '../components/RegisterForm.vue';
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
-

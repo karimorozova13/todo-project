@@ -1,5 +1,5 @@
 import axios from "axios";
-import ITodo from "../interfaces/Todo.interface";
+import type ITodo from "../interfaces/Todo.interface";
 
 const apiConfig = axios.create({
   baseURL: "http://localhost:3003/",

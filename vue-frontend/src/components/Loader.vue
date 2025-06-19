@@ -6,14 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import {
-  VueSpinnerClock
-} from 'vue3-spinners';
-export default {
-  components: {
-    VueSpinnerClock,
-  },
-};
+import {  VueSpinnerClock} from 'vue3-spinners';
+
 </script>
 
 <style scoped>

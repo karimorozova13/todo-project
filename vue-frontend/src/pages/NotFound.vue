@@ -1,7 +1,7 @@
 <template>
-  <div>
-
-  </div>
+  <h1>
+You shall not pass!
+  </h1>
 </template>
 
 <script>

@@ -35,5 +35,9 @@ const { onClick, type } = props;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 </style>

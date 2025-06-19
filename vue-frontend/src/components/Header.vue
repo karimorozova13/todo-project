@@ -7,8 +7,10 @@
 
 <script setup lang="ts">
  import { useRouter } from 'vue-router'
-import { authApi } from '../utils/authApi'
+import { authApi } from '../utils/utils/authApi'
 
+  // Function to handle logout
+  // This function will remove the token from localStorage and redirect to the login page
 const router = useRouter()
 
   const logout = async () => {

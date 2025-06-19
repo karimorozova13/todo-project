@@ -24,7 +24,7 @@ const customStyle = props.style;
   @media only screen and (max-width: 575px) {
     width: 100%;
   }
-  div {
+  ::v-deep(div) {
     position: relative;
     width: 290px;
     margin: 0 auto;
@@ -32,7 +32,7 @@ const customStyle = props.style;
       width: 250px;
     }
   }
-  input {
+  ::v-deep(input) {
     min-height: 40px;
     min-width: 290px;
     padding: 7px;

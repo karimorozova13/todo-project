@@ -14,7 +14,7 @@
   font-size: 14px;
   margin: 0 auto;
   width: fit-content;
-  a {
+   ::v-deep(a) {
     color: #4682b4;
     text-decoration: none;
   }
