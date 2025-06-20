@@ -1,35 +1,32 @@
 <template>
   <ul class="list">
-<TodoItem
-  v-for="el in todoList"
-  :key="el._id"
-  :token="token"
-  :refresh-data="refreshData"
-  :el="el"
-/>
-
+    <TodoItem
+      v-for="el in todoList"
+      :key="el._id"
+      :token="token"
+      :refresh-data="refreshData"
+      :el="el"
+    />
   </ul>
 </template>
 
 <script setup lang="ts">
-import TodoItem from './TodoItem.vue';
-import { defineProps } from 'vue';
-
+import TodoItem from "./TodoItem.vue";
+import { defineProps } from "vue";
 
 interface TodoListProps {
   todoList: { title: string; isCompleted: boolean; _id: string }[];
   token: string;
   refreshData?: () => void;
 }
-const props = withDefaults(defineProps<TodoListProps>(), {
+withDefaults(defineProps<TodoListProps>(), {
   refreshData: () => {},
 });
-
 </script>
 
 <style scoped lang="scss">
 .list {
-   display: flex;
+  display: flex;
   flex-wrap: wrap;
   gap: 20px;
   padding: 0;

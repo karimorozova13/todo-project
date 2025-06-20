@@ -13,7 +13,7 @@ interface IRegisterValues {
   confirmPassword: string;
   email: string;
 }
-interface ILoginValues {
+export interface ILoginValues {
   password: string;
   email: string;
 }

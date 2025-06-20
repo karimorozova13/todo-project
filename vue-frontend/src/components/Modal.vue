@@ -1,21 +1,31 @@
 <template>
-<div class="backdrop">
-<div class="modal">
-<span class="close" @click="closeModal">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-</svg>
-
-</span>
-<p class="title">Next up:</p>
-<input v-model="value" @keyup.enter="handleEnter"  />
-<button class="btn"  @click="updateTodo(value)">{{ btnTitle }}</button>
-</div>
-</div>
+  <div class="backdrop">
+    <div class="modal">
+      <span class="close" @click="closeModal">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18 18 6M6 6l12 12"
+          />
+        </svg>
+      </span>
+      <p class="title">Next up:</p>
+      <input v-model="value" @keyup.enter="handleEnter" />
+      <button class="btn" @click="updateTodo(value)">{{ btnTitle }}</button>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
 interface ModalProps {
   todo?: string;
@@ -24,32 +34,31 @@ interface ModalProps {
   btnTitle?: string;
 }
 const props = defineProps<ModalProps>();
-const {updateTodo, closeModal } = props;
+const { updateTodo, closeModal } = props;
 
-const value = ref(props.todo || '')
+const value = ref(props.todo || "");
 
-const btnTitle = props.btnTitle || 'Edit'
-
+const btnTitle = props.btnTitle || "Edit";
 
 const handleEnter = () => {
   if (value.value.trim()) {
-    updateTodo(value.value)
+    updateTodo(value.value);
   }
-}
+};
 
 const handleKeyUp = (e: KeyboardEvent) => {
-  if (e.key === 'Enter') {
-    handleEnter()
+  if (e.key === "Enter") {
+    handleEnter();
   }
-}
+};
 
 onMounted(() => {
-  document.addEventListener('keyup', handleKeyUp)
-})
+  document.addEventListener("keyup", handleKeyUp);
+});
 
 onUnmounted(() => {
-  document.removeEventListener('keyup', handleKeyUp)
-})
+  document.removeEventListener("keyup", handleKeyUp);
+});
 </script>
 
 <style scoped lang="scss">
@@ -84,6 +93,7 @@ onUnmounted(() => {
     outline: none;
     border-radius: 4px;
     box-sizing: border-box;
+    cursor: pointer;
   }
   @media only screen and (max-width: 575px) {
     max-width: 290px;
@@ -91,16 +101,17 @@ onUnmounted(() => {
   }
 }
 .close {
-   display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: 20px;
   right: 20px;
   cursor: pointer;
+  width: 20px;
 }
 .title {
-    font-size: 16px;
+  font-size: 16px;
   margin-bottom: 10px;
 }
 .btn {

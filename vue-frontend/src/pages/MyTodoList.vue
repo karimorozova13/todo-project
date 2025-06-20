@@ -43,21 +43,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
-import { MdAddAPhoto } from 'vue3-icons/md';
+import { ref, watch, onMounted } from "vue";
+import { MdAddAPhoto } from "vue3-icons/md";
 
-import { todoListApi } from '../utils/utils/todoApi';
-import { authApi } from '../utils/utils/authApi';
-import type { ITodo } from '../utils/interfaces/Todo.interface';
+import { todoListApi } from "../utils/utils/todoApi";
+import { authApi } from "../utils/utils/authApi";
+import type ITodo from "../utils/interfaces/Todo.interface";
 
-
-import Header from '../components/Header.vue';
-import Container from '../components/Container.vue';
-import Title from '../components/Title.vue';
-import TodoList from '../components/TodoList.vue';
-import Modal from '../components/Modal.vue';
-import Section from '../components/Section.vue';
-import Loader from '../components/Loader.vue';
+import Header from "../components/Header.vue";
+import Container from "../components/Container.vue";
+import Title from "../components/Title.vue";
+import TodoList from "../components/TodoList.vue";
+import Modal from "../components/Modal.vue";
+import Section from "../components/Section.vue";
+import Loader from "../components/Loader.vue";
 
 interface IOwner {
   firstName: string;
@@ -76,13 +75,13 @@ const todoList = ref<ITodo[]>([]);
 const isAddNewTask = ref(false);
 const token = ref<string | null>(null);
 const owner = ref<IOwner | null>(null);
-const avatarUrl = ref<string>('');
+const avatarUrl = ref<string>("");
 const isLoading = ref(false);
 
 const fetchTodoList = async () => {
   try {
     isLoading.value = true;
-    const data = await todoListApi.getAll(token.value || '');
+    const data = await todoListApi.getAll(token.value || "");
     todoList.value = data || [];
   } catch (error) {
     console.error(error);
@@ -94,7 +93,7 @@ const fetchTodoList = async () => {
 const fetchOwner = async () => {
   try {
     isLoading.value = true;
-    const data = await authApi.current(token.value || '');
+    const data = await authApi.current(token.value || "");
     owner.value = data;
     avatarUrl.value = data.avatarUrl;
   } catch (error) {
@@ -107,7 +106,7 @@ const fetchOwner = async () => {
 const addNewTask = async (val: string) => {
   try {
     isLoading.value = true;
-    await todoListApi.addNew(val, token.value || '');
+    await todoListApi.addNew(val, token.value || "");
     await fetchTodoList();
   } catch (error) {
     console.error(error);
@@ -121,9 +120,9 @@ const setAvatar = async (file: File) => {
   try {
     isLoading.value = true;
     const avatar = new FormData();
-    avatar.append('avatar', file);
+    avatar.append("avatar", file);
 
-    const newPath = await authApi.upload(token.value || '', avatar);
+    const newPath = await authApi.upload(token.value || "", avatar);
     avatarUrl.value = newPath.url;
     await fetchOwner();
   } catch (error) {
@@ -140,7 +139,7 @@ const onAvatarChange = (e: Event) => {
 };
 
 onMounted(() => {
-  const tokenLS = localStorage.getItem('token');
+  const tokenLS = localStorage.getItem("token");
   token.value = tokenLS;
 
   if (token.value) {

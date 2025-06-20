@@ -6,9 +6,13 @@
       <div class="form-wrap">
         <FormTitle title="Welcome back :)" />
 
-        <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ values  }" validate-on-blur
-  validate-on-change
-  validate-on-input>
+        <Form
+          @submit="onSubmit"
+          :validation-schema="schema"
+          validate-on-blur
+          validate-on-change
+          validate-on-input
+        >
           <Input style="margin: 0 auto 30px">
             <Field
               name="email"
@@ -47,7 +51,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useForm, Field, Form, ErrorMessage } from "vee-validate";
+import { Field, Form, ErrorMessage } from "vee-validate";
 import * as Yup from "yup";
 import axios from "axios";
 
@@ -62,6 +66,7 @@ import PopUp from "./PopUp.vue";
 
 import { authApi } from "../utils/utils/authApi";
 
+// Tell vee-validate the shape of your form
 const router = useRouter();
 
 const type = ref<"password" | "text">("password");
@@ -76,20 +81,12 @@ const schema = Yup.object({
   password: Yup.string().required("Password is required"),
 });
 
-// const { handleSubmit } = useForm({
-//   validationSchema: schema,
-// });
-
 const onSubmit = async (values) => {
-
   try {
-  console.log(error);
-
     const res = await authApi.login(values);
-    console.log(res);
 
-    // localStorage.setItem("token", res.token);
-    // router.push("/my-todo-list");
+    localStorage.setItem("token", res.token);
+    router.push("/my-todo-list");
   } catch (e) {
     if (axios.isAxiosError(e)) {
       error.value = e.response?.data || "Login failed";
