@@ -1,0 +1,15 @@
+<main>
+  <app-container>
+   <app-form-title [title]='title'/>
+    <app-close (onClick)="handleClose()"/>
+    <app-custom-input>
+    <app-icon (onClick)="toggleInputType()" [type]="inputType"/>
+    </app-custom-input>
+  </app-container>
+
+
+</main>
+
+
+
+<router-outlet />
