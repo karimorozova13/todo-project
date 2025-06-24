@@ -1,0 +1,9 @@
+.todo-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  flex-grow: 1;
+}

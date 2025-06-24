@@ -1,0 +1,40 @@
+ .formWrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  justify-content: center;
+  margin-bottom: 40px;
+ }
+.errorText {
+  color: red;
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  top: 100%;
+  width: 100%;
+}
+:host ::ng-deep {input {
+min-height: 40px;
+    min-width: 290px;
+    padding: 7px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    outline: none;
+    cursor: pointer;
+    border-radius: 6px;
+    &::placeholder {
+      color: #ccc;
+      font-size: 14px;
+    }
+    @media only screen and (max-width: 767px) {
+      min-width: 250px;
+    }
+}
+a {
+    color: #4682b4;
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<app-section>
+  <app-container>
+
+    <div *ngIf="owner" class="user">
+      <div class="avatar">
+        <ng-container *ngIf="avatarUrl; else uploadPhoto">
+          <img [src]="avatarUrl" alt="User avatar" class="w-full h-full" />
+        </ng-container>
+        <ng-template #uploadPhoto>
+
+          <p>Upload photo</p>
+        </ng-template>
+
+        <input
+          type="file"
+          name="avatar"
+          (change)="onFileSelected($event)"
+          class="absolute top-0 left-0 w-full h-full cursor-pointer opacity-0"
+        />
+      </div>
+
+      <app-title [title]="owner.firstName + ' ' + owner.lastName"></app-title>
+    </div>
+
+    <app-todo-list
+      [token]="token || ''"
+      [todoList]="todoList"
+      (refreshData)="fetchTodoList()"
+    ></app-todo-list>
+
+    <button class="btn" (click)="isAddNewTask = true">Add new task</button>
+
+    <app-modal
+      *ngIf="isAddNewTask"
+      (closeModal)="isAddNewTask = false"
+      (updateTodo)="addNewTask($event)"
+      [btnTitle]="'Add Task'"
+    ></app-modal>
+
+  </app-container>
+</app-section>
+
+<app-loader *ngIf="isLoading"></app-loader>

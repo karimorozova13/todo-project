@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
   styleUrl: './container.scss',
 })
 export class Container {
-
 }

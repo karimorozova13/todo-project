@@ -1,0 +1,9 @@
+<ul class="todo-list">
+  <app-todo-item
+    *ngFor="let el of todoList"
+    [el]="el"
+    [token]="token"
+    [refreshData]="refreshData"
+  ></app-todo-item>
+</ul>
+

@@ -1,0 +1,30 @@
+<li class="todo-item">
+  <h3 [class.completed]="isCompleted">{{ todo }}</h3>
+
+  <div class="checkbox-wrap" (click)="saveTodo(todo, !isCompleted)">
+    <div class="checkbox">
+      <span *ngIf="isCompleted">done</span>
+    </div>
+    <p>Complete task</p>
+  </div>
+
+  <!-- <a [routerLink]="['/my-todo-list', el._id]">Read more</a> -->
+
+  <div class="buttons">
+    <button class="icon-btn" (click)="openEditModal()">
+      <span>edit</span>
+    </button>
+    <button class="icon-btn" (click)="deleteTodo()">
+      <span>delete</span>
+    </button>
+  </div>
+
+  <app-modal
+    *ngIf="isEdit"
+    [todo]="todo"
+    [btnTitle]="'Save'"
+    (updateTodo)="saveTodo($event, isCompleted)"
+    (closeModal)="closeModal()"
+  />
+</li>
+

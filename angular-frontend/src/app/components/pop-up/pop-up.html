@@ -1,0 +1,5 @@
+<div *ngIf="isShow" class="error-box">
+  <p class="error-text">{{ error }}</p>
+  <app-close (onClick)="hide()"></app-close>
+</div>
+

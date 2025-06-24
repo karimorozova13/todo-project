@@ -1,0 +1,11 @@
+<div class="backdrop">
+  <div class="modal-wrap">
+    <span class="close" (click)="onClose()">
+      close
+    </span>
+    <p class="title">Next up:</p>
+    <input [(ngModel)]="value" />
+    <button class="submit-btn" (click)="onUpdate()">{{ btnTitle }}</button>
+  </div>
+</div>
+
