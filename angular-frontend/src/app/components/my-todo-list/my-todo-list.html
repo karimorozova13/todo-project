@@ -2,14 +2,12 @@
 
 <app-section>
   <app-container>
-
     <div *ngIf="owner" class="user">
       <div class="avatar">
         <ng-container *ngIf="avatarUrl; else uploadPhoto">
           <img [src]="avatarUrl" alt="User avatar" class="w-full h-full" />
         </ng-container>
         <ng-template #uploadPhoto>
-
           <p>Upload photo</p>
         </ng-template>
 
@@ -27,7 +25,7 @@
     <app-todo-list
       [token]="token || ''"
       [todoList]="todoList"
-      (refreshData)="fetchTodoList()"
+      [refreshData]="fetchTodoList.bind(this)"
     ></app-todo-list>
 
     <button class="btn" (click)="isAddNewTask = true">Add new task</button>
@@ -38,7 +36,6 @@
       (updateTodo)="addNewTask($event)"
       [btnTitle]="'Add Task'"
     ></app-modal>
-
   </app-container>
 </app-section>
 

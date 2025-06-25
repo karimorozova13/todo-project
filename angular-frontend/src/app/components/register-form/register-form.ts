@@ -1,6 +1,17 @@
 import { Component } from '@angular/core';
-import { FormBuilder,ReactiveFormsModule, Validators, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Router, RouterModule  } from '@angular/router';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+  FormGroup,
+  AbstractControl,
+  ValidatorFn,
+} from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+import { authApi } from '../../utils/utils/authApi';
+
 import { Section } from '../section/section';
 import { Container } from '../container/container';
 import { FormTitle } from '../form-title/form-title';
@@ -8,12 +19,12 @@ import { CustomInput } from '../custom-input/custom-input';
 import { Icon } from '../icon/icon';
 import { LinkText } from '../link-text/link-text';
 import { SubmitBtn } from '../submit-btn/submit-btn';
-import { CommonModule } from '@angular/common';
-
-
 
 // Custom validator for matching passwords
-function passwordMatchValidator(password: string, confirmPassword: string): ValidatorFn {
+function passwordMatchValidator(
+  password: string,
+  confirmPassword: string
+): ValidatorFn {
   return (formGroup: AbstractControl) => {
     const pass = formGroup.get(password)?.value;
     const confirmPass = formGroup.get(confirmPassword)?.value;
@@ -23,13 +34,24 @@ function passwordMatchValidator(password: string, confirmPassword: string): Vali
 
 @Component({
   selector: 'app-register-form',
-   standalone: true,
-  imports: [RouterModule , CommonModule,ReactiveFormsModule,Section, Container, FormTitle, CustomInput,Icon, LinkText, SubmitBtn],
+  standalone: true,
+  imports: [
+    RouterModule,
+    CommonModule,
+    ReactiveFormsModule,
+    Section,
+    Container,
+    FormTitle,
+    CustomInput,
+    Icon,
+    LinkText,
+    SubmitBtn,
+  ],
   templateUrl: './register-form.html',
-  styleUrl: './register-form.scss'
+  styleUrl: './register-form.scss',
 })
 export class RegisterForm {
- registerForm: FormGroup;
+  registerForm: FormGroup;
   showPassword = false;
   showConfirmPassword = false;
   errorMessage: string | null = null;
@@ -41,18 +63,21 @@ export class RegisterForm {
         lastName: ['', [Validators.required, Validators.minLength(3)]],
         userName: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(/[A-Z]/), // uppercase
-          Validators.pattern(/[a-z]/), // lowercase
-          Validators.pattern(/[0-9]/), // number
-          Validators.pattern(/[!@#$%^&*]/) // special char
-        ]],
-        confirmPassword: ['', Validators.required]
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(/[A-Z]/), // uppercase
+            Validators.pattern(/[a-z]/), // lowercase
+            Validators.pattern(/[0-9]/), // number
+            Validators.pattern(/[!@#$%^&*]/), // special char
+          ],
+        ],
+        confirmPassword: ['', Validators.required],
       },
       {
-        validators: passwordMatchValidator('password', 'confirmPassword')
+        validators: passwordMatchValidator('password', 'confirmPassword'),
       }
     );
   }
@@ -74,13 +99,11 @@ export class RegisterForm {
     const values = this.registerForm.value;
 
     try {
-      // Call your API here, replace this with your service call:
-      // await this.authService.register(values);
+      await authApi.register(values);
 
       console.log('Registration successful:', values);
       this.router.navigate(['/login']);
     } catch (error) {
-      // Handle error (e.g. show popup)
       this.errorMessage = 'Registration failed. Please try again.';
       console.error(error);
     }
@@ -91,4 +114,3 @@ export class RegisterForm {
     return this.registerForm.controls;
   }
 }
-

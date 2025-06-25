@@ -52,3 +52,8 @@
   flex-direction: column;
   margin-bottom: 30px;
 }
+:host ::ng-deep app-todo-item {
+
+    width: 100%;
+
+}

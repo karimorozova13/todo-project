@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-modal',
   imports: [FormsModule],
   templateUrl: './modal.html',
   styleUrl: './modal.scss'
 })
+
 export class Modal {
-@Input() todo: string = '';
+  @Input() todo: string = '';
   @Input() btnTitle: string = 'Edit';
 
   @Output() updateTodo = new EventEmitter<string>();

@@ -1,12 +1,13 @@
-import { Component, Input  } from '@angular/core';
-import { Close } from '../close/close';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { Close } from '../close/close';
 
 @Component({
   selector: 'app-pop-up',
-  imports: [Close,CommonModule],
+  imports: [Close, CommonModule],
   templateUrl: './pop-up.html',
-  styleUrl: './pop-up.scss'
+  styleUrl: './pop-up.scss',
 })
 export class PopUp {
   @Input() error: string = '';
@@ -20,4 +21,3 @@ export class PopUp {
     this.isShow = false;
   }
 }
-

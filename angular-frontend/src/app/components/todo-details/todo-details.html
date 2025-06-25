@@ -1,0 +1,22 @@
+<app-header></app-header>
+
+<app-section>
+  <app-container>
+    <div class="mb-10 cursor-pointer" (click)="goBack()">
+      <span style="color: teal; font-size: 1.5rem">&#8592; Back</span>
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+
+    <ng-container *ngIf="todo && !isLoading">
+      <p>Task:</p>
+      <app-title [title]="todo.title"></app-title>
+
+      <p>Is completed:</p>
+      <app-title
+        [title]="todo.isCompleted ? 'Task is completed' : 'You should finish the task'"
+      >
+      </app-title>
+    </ng-container>
+  </app-container>
+</app-section>

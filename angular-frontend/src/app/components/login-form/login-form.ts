@@ -1,7 +1,15 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
+import { authApi } from '../../utils/utils/authApi';
+
 import { Section } from '../section/section';
 import { Container } from '../container/container';
 import { FormTitle } from '../form-title/form-title';
@@ -10,12 +18,12 @@ import { CustomInput } from '../custom-input/custom-input';
 import { SubmitBtn } from '../submit-btn/submit-btn';
 import { LinkText } from '../link-text/link-text';
 import { PopUp } from '../pop-up/pop-up';
-import { authApi } from '../../utils/utils/authApi';
 
 @Component({
   selector: 'app-login-form',
-   standalone: true,
-  imports: [    CommonModule,
+  standalone: true,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
     Section,
     Container,
@@ -23,20 +31,19 @@ import { authApi } from '../../utils/utils/authApi';
     Icon,
     CustomInput,
     SubmitBtn,
-    LinkText,RouterModule,
-    PopUp],
+    LinkText,
+    RouterModule,
+    PopUp,
+  ],
   templateUrl: './login-form.html',
-  styleUrl: './login-form.scss'
+  styleUrl: './login-form.scss',
 })
 export class LoginForm {
   error: string | null = null;
   type: 'password' | 'text' = 'password';
   form: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -51,7 +58,7 @@ export class LoginForm {
     if (this.form.invalid) return;
 
     try {
-      const res = await authApi.login(this.form.value); // ✅ use axios-based API
+      const res = await authApi.login(this.form.value);
       localStorage.setItem('token', res.token);
       this.router.navigate(['/my-todo-list']);
     } catch (err) {
@@ -59,4 +66,3 @@ export class LoginForm {
     }
   }
 }
-

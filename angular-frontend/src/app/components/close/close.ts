@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './close.html',
   styleUrl: './close.scss',
 })
+
 export class Close {
  @Output() onClick = new EventEmitter<void>();
 

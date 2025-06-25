@@ -9,39 +9,36 @@
           formControlName="firstName"
           placeholder="First Name"
         />
-        <p *ngIf="f['firstName'].touched && f['firstName'].errors" class="errorText">
+        <p
+          *ngIf="f['firstName'].touched && f['firstName'].errors"
+          class="errorText"
+        >
           First name must be at least 3 characters
         </p>
       </app-custom-input>
 
       <app-custom-input>
-        <input
-          type="text"
-          formControlName="lastName"
-          placeholder="Last Name"
-        />
-        <p *ngIf="f['lastName'].touched && f['lastName'].errors" class="errorText">
+        <input type="text" formControlName="lastName" placeholder="Last Name" />
+        <p
+          *ngIf="f['lastName'].touched && f['lastName'].errors"
+          class="errorText"
+        >
           Last name must be at least 3 characters
         </p>
       </app-custom-input>
 
       <app-custom-input>
-        <input
-          type="text"
-          formControlName="userName"
-          placeholder="User Name"
-        />
-        <p *ngIf="f['userName'].touched && f['userName'].errors" class="errorText">
+        <input type="text" formControlName="userName" placeholder="User Name" />
+        <p
+          *ngIf="f['userName'].touched && f['userName'].errors"
+          class="errorText"
+        >
           User name must be at least 3 characters
         </p>
       </app-custom-input>
 
       <app-custom-input>
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Email"
-        />
+        <input type="email" formControlName="email" placeholder="Email" />
         <p *ngIf="f['email'].touched && f['email'].errors" class="errorText">
           Valid email required
         </p>
@@ -57,8 +54,12 @@
           [type]="showPassword ? 'text' : 'password'"
           (click)="togglePasswordVisibility()"
         ></app-icon>
-        <p *ngIf="f['password'].touched && f['password'].errors" class="errorText">
-          Password must include uppercase, lowercase, number, special character and be at least 8 characters.
+        <p
+          *ngIf="f['password'].touched && f['password'].errors"
+          class="errorText"
+        >
+          Password must include uppercase, lowercase, number, special character
+          and be at least 8 characters.
         </p>
       </app-custom-input>
 
@@ -72,7 +73,10 @@
           [type]="showConfirmPassword ? 'text' : 'password'"
           (click)="toggleConfirmPasswordVisibility()"
         ></app-icon>
-        <p *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors" class="errorText">
+        <p
+          *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors"
+          class="errorText"
+        >
           Passwords must match
         </p>
         <p *ngIf="registerForm.errors?.['passwordMismatch']" class="errorText">

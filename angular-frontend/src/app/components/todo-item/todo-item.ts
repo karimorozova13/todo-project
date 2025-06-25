@@ -2,7 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Modal } from '../modal/modal'
+
+import { todoListApi } from '../../utils/utils/todoApi';
+
+import { Modal } from '../modal/modal';
 
 interface TodoItemData {
   _id: string;
@@ -12,12 +15,12 @@ interface TodoItemData {
 
 @Component({
   selector: 'app-todo-item',
-  imports: [Modal],
+  imports: [Modal, CommonModule, RouterModule],
   templateUrl: './todo-item.html',
-  styleUrl: './todo-item.scss'
+  styleUrl: './todo-item.scss',
 })
-export class TodoItem {
-@Input() el!: TodoItemData;
+export class TodoItem implements OnInit {
+  @Input() el!: TodoItemData;
   @Input() token!: string;
   @Input() refreshData?: () => Promise<void>;
 
@@ -30,28 +33,42 @@ export class TodoItem {
   ngOnInit(): void {
     this.todo = this.el.title;
     this.isCompleted = this.el.isCompleted;
+    console.log(this.el.isCompleted);
   }
 
   async saveTodo(val: string, isCompleted: boolean) {
+    console.log('here');
+
     this.todo = val;
     try {
-      // Replace with actual service call
-      console.log('Saving todo:', this.el._id, val, isCompleted, this.token);
+      console.log(this.el);
+
+      await todoListApi.updateOne(this.el._id, val, isCompleted, this.token);
+      if (this.refreshData) await this.refreshData();
     } catch (error) {
       console.error(error);
     } finally {
       this.isEdit = false;
+      console.log(this.el.isCompleted);
     }
   }
 
   async deleteTodo() {
     try {
-      // Replace with actual service call
-      console.log('Deleting:', this.el._id);
+      await todoListApi.deleteOne(this.el._id, this.token);
       if (this.refreshData) await this.refreshData();
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async toggleComplete() {
+    this.isCompleted = !this.isCompleted;
+    await this.saveTodo(this.todo, this.isCompleted);
+  }
+
+  navigateToDetails() {
+    this.router.navigate([`/my-todo-list/${this.el._id}`]);
   }
 
   openEditModal() {
@@ -62,4 +79,3 @@ export class TodoItem {
     this.isEdit = false;
   }
 }
-

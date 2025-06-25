@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {  ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { authApi } from '../../utils/utils/authApi';
 import { todoListApi } from '../../utils/utils/todoApi';
+
 import { Header } from '../header/header';
 import { Container } from '../container/container';
 import { Title } from '../title/title';
@@ -12,15 +13,21 @@ import { Modal } from '../modal/modal';
 import { Section } from '../section/section';
 import { Loader } from '../loader/loader';
 
-
-
 @Component({
   selector: 'app-my-todo-list',
   imports: [
-    Header,Container,Title,TodoList,Modal,Section,Loader,ReactiveFormsModule,CommonModule
+    Header,
+    Container,
+    Title,
+    TodoList,
+    Modal,
+    Section,
+    Loader,
+    ReactiveFormsModule,
+    CommonModule,
   ],
   templateUrl: './my-todo-list.html',
-  styleUrl: './my-todo-list.scss'
+  styleUrl: './my-todo-list.scss',
 })
 export class MyTodoList implements OnInit {
   todoList: any[] = [];
@@ -91,7 +98,6 @@ export class MyTodoList implements OnInit {
     }
   }
 
-  // Helper for file input change event
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files && input.files[0];
@@ -100,4 +106,3 @@ export class MyTodoList implements OnInit {
     }
   }
 }
-
