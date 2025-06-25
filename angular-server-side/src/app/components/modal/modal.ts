@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-modal',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './modal.html',
   styleUrl: './modal.scss',

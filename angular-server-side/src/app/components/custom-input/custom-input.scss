@@ -1,0 +1,16 @@
+.input {
+  text-align: center;
+  position: relative;
+  width: fit-content;
+  @media only screen and (max-width: 575px) {
+    width: 100%;
+  }
+  div {
+    position: relative;
+    width: 290px;
+    margin: 0 auto;
+    @media only screen and (max-width: 767px) {
+      width: 250px;
+    }
+  }
+}

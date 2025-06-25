@@ -1,0 +1,38 @@
+<app-section>
+  <app-container>
+    <div class="form-wrap">
+      <app-pop-up *ngIf="error" [error]="error" />
+
+      <app-form-title title="Welcome back :)" />
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-custom-input>
+          <input
+            type="text"
+            formControlName="email"
+            placeholder="Email"
+            autocomplete="email"
+          />
+        </app-custom-input>
+
+        <app-custom-input>
+          <div>
+            <input
+              [type]="type"
+              formControlName="password"
+              placeholder="Password"
+              autocomplete="current-password"
+            />
+            <app-icon [type]="type" (click)="toggleType()"></app-icon>
+          </div>
+        </app-custom-input>
+
+        <app-submit-btn title="Log in" type="submit"></app-submit-btn>
+      </form>
+
+      <app-link-text>
+        Don’t have an account? <a routerLink="/">Register</a>
+      </app-link-text>
+    </div>
+  </app-container>
+</app-section>
