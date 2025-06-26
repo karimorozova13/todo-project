@@ -33,23 +33,17 @@ export class TodoItem implements OnInit {
   ngOnInit(): void {
     this.todo = this.el.title;
     this.isCompleted = this.el.isCompleted;
-    console.log(this.el.isCompleted);
   }
 
   async saveTodo(val: string, isCompleted: boolean) {
-    console.log('here');
-
     this.todo = val;
     try {
-      console.log(this.el);
-
       await todoListApi.updateOne(this.el._id, val, isCompleted, this.token);
       if (this.refreshData) await this.refreshData();
     } catch (error) {
       console.error(error);
     } finally {
       this.isEdit = false;
-      console.log(this.el.isCompleted);
     }
   }
 

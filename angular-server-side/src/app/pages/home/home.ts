@@ -6,5 +6,6 @@ import { RegisterForm } from '../../components/register-form/register-form';
   imports: [RegisterForm],
   templateUrl: './home.html',
   styleUrl: './home.scss',
+  standalone: true,
 })
 export class Home {}

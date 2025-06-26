@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-link-text',
   imports: [],
   templateUrl: './link-text.html',
-  styleUrl: './link-text.scss'
+  styleUrl: './link-text.scss',
+  standalone: true,
 })
-export class LinkText {
-
-}
+export class LinkText {}

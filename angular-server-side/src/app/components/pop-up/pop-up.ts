@@ -8,6 +8,7 @@ import { Close } from '../close/close';
   imports: [Close, CommonModule],
   templateUrl: './pop-up.html',
   styleUrl: './pop-up.scss',
+  standalone: true,
 })
 export class PopUp {
   @Input() error: string = '';

@@ -6,5 +6,6 @@ import { LoginForm } from '../../components/login-form/login-form';
   imports: [LoginForm],
   templateUrl: './login.html',
   styleUrl: './login.scss',
+  standalone: true,
 })
 export class Login {}

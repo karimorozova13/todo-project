@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './custom-input.html',
   styleUrl: './custom-input.scss',
+  standalone: true,
 })
 export class CustomInput {
   @Input() styles: { [klass: string]: any } = {};

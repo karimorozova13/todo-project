@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './icon.html',
   styleUrl: './icon.scss',
+  standalone: true,
 })
 export class Icon {
   @Output() onClick = new EventEmitter<void>();

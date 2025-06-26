@@ -6,8 +6,8 @@ import { todoListApi } from '../../utils/utils/todoApi';
 import { Header } from '../../components/header/header';
 import { Section } from '../../components/section/section';
 import { Container } from '../../components/container/container';
-import { Title } from '@angular/platform-browser';
 import { Loader } from '../../components/loader/loader';
+import { Title } from '../../components/title/title';
 
 @Component({
   selector: 'app-todo-details',
@@ -22,6 +22,7 @@ import { Loader } from '../../components/loader/loader';
   ],
   templateUrl: './todo-details.html',
   styleUrl: './todo-details.scss',
+  standalone: true,
 })
 export class TodoDetails implements OnInit {
   id = '';

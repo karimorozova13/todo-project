@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-close',
+  standalone: true,
   imports: [],
   templateUrl: './close.html',
   styleUrl: './close.scss',

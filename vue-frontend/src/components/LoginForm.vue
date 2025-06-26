@@ -1,7 +1,7 @@
 <template>
   <Section>
     <Container>
-      <PopUp v-if="error" error="Email or password is incorrect" />
+      <Popup v-if="error" error="Email or password is incorrect" />
 
       <div class="form-wrap">
         <FormTitle title="Welcome back :)" />
@@ -62,7 +62,7 @@ import LinkText from "./LinkText.vue";
 import FormTitle from "./FormTitle.vue";
 import Icon from "./Icon.vue";
 import SubmitBtn from "./SubmitBtn.vue";
-import PopUp from "./PopUp.vue";
+import Popup from "./Popup.vue";
 
 import { authApi } from "../utils/utils/authApi";
 

@@ -1,11 +1,12 @@
 <template>
- <div class="container" :style="customStyle">
- <slot/>
- </div>
+  <div class="container" :style="customStyle">
+    <slot />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { CSSProperties } from 'vue';
+/// <reference types="../../node_modules/.vue-global-types/vue_3.5_0_0_0.d.ts" />
+import type { CSSProperties } from "vue";
 
 interface InputProps {
   style?: CSSProperties;

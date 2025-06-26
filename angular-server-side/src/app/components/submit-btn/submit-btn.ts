@@ -5,6 +5,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   imports: [],
   templateUrl: './submit-btn.html',
   styleUrl: './submit-btn.scss',
+  standalone: true,
 })
 export class SubmitBtn {
   @Input() title: string = '';
