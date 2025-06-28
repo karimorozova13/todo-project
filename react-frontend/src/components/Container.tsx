@@ -5,6 +5,7 @@ const ContainerWrap = styled.div`
   margin-right: auto;
   margin-left: auto;
   max-width: 1140px;
+  padding: ${({ theme }) => theme.spacing.medium};
   display: flex;
   flex-direction: column;
 

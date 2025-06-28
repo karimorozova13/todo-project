@@ -17,7 +17,7 @@ const Header = () => {
   };
 
   return (
-    <div className="p-[15px] flex justify-between bg-[#c0d1c2]">
+    <div className="p-section flex justify-between bg-primary-main">
       <div
         className="flex items-center gap-[10px] ml-auto cursor-pointer transition-opacity duration-[250ms] ease-[cubic-bezier(0.445,0.05,0.55,0.95)] hover:opacity-60 focus:opacity-60"
         onClick={logout}
